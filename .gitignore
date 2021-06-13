@@ -3,3 +3,8 @@ x64/*
 *.obj
 *.pdb
 *.tlog
+Debug/*
+*.exe
+*.ilk
+*.log
+*.ini
