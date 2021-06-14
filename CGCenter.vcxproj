@@ -20,13 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\3rdpart\imgui\src\imgui.cpp" />
-    <ClCompile Include="src\3rdpart\imgui\src\imgui_demo.cpp" />
     <ClCompile Include="src\3rdpart\imgui\src\imgui_draw.cpp" />
     <ClCompile Include="src\3rdpart\imgui\src\imgui_impl_glfw.cpp" />
     <ClCompile Include="src\3rdpart\imgui\src\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\3rdpart\imgui\src\imgui_tables.cpp" />
     <ClCompile Include="src\3rdpart\imgui\src\imgui_widgets.cpp" />
     <ClCompile Include="src\app\main.cpp" />
+    <ClCompile Include="src\ui\uiframework.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -90,14 +90,14 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>F:\GitHub\CGCenter\src\3rdpart\;F:\GitHub\CGCenter\src\3rdpart\imgui\include;F:\GitHub\CGCenter\src\app;F:\GitHub\CGCenter\src\3rdpart\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src\3rdpart\;.\src\3rdpart\imgui\include;.\src\app;.\src\3rdpart\glew\include;.\src\ui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>F:\GitHub\CGCenter\libs\glfw\x86;F:\GitHub\CGCenter\libs\glew\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\libs\glew\Release\Win32;.\libs\glfw\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,7 +106,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>F:\GitHub\CGCenter\src\3rdpart;F:\GitHub\CGCenter\src\3rdpart\glew\include;F:\GitHub\CGCenter\src\3rdpart\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src\3rdpart\;.\src\3rdpart\imgui\include;.\src\app;.\src\3rdpart\glew\include;.\src\ui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -114,27 +114,27 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>F:\GitHub\CGCenter\libs\glew\Release\Win32;F:\GitHub\CGCenter\libs\glfw\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\libs\glew\Release\Win32;.\libs\glfw\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>OpenGL32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>F:\GitHub\CGCenter\src\3rdpart\;F:\GitHub\CGCenter\src\3rdpart\imgui\include;F:\GitHub\CGCenter\src\3rdpart\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src\3rdpart\;.\src\3rdpart\imgui\include;.\src\app;.\src\3rdpart\glew\include;.\src\ui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>F:\GitHub\CGCenter\libs\glfw\x64;F:\GitHub\CGCenter\libs\glew\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\libs\glfw\x64;.\libs\glew\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>OpenGL32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>F:\GitHub\CGCenter\libs\glfw\x64;F:\GitHub\CGCenter\libs\glew\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\libs\glfw\x64;.\libs\glew\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>F:\GitHub\CGCenter\src\3rdpart\;F:\GitHub\CGCenter\src\3rdpart\imgui\include;F:\GitHub\CGCenter\src\app;F:\GitHub\CGCenter\src\3rdpart\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src\3rdpart\;.\src\3rdpart\imgui\include;.\src\app;.\src\3rdpart\glew\include;.\src\ui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
   </ItemDefinitionGroup>
