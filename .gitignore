@@ -4,6 +4,7 @@ x64/*
 *.pdb
 *.tlog
 Debug/*
+Release/*
 *.exe
 *.ilk
 *.log
