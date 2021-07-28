@@ -4,6 +4,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "../runtime/render.h"
 #include <stdio.h>
 #include <GL/glew.h>
 // Include glfw3.h after our OpenGL definitions
@@ -18,6 +19,7 @@ public:
 	bool Draw();
 	bool Destroy();
 private:
+	Render* render = nullptr;
 	GLFWwindow* window = nullptr;
 	bool show_demo_window = true;
 	bool show_another_window = false;

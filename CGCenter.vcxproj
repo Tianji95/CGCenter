@@ -26,7 +26,13 @@
     <ClCompile Include="src\3rdpart\imgui\src\imgui_tables.cpp" />
     <ClCompile Include="src\3rdpart\imgui\src\imgui_widgets.cpp" />
     <ClCompile Include="src\app\main.cpp" />
+    <ClCompile Include="src\runtime\camera.cpp" />
+    <ClCompile Include="src\runtime\Render.cpp" />
+    <ClCompile Include="src\runtime\shader.cpp" />
     <ClCompile Include="src\ui\uiframework.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\runtime\shader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
