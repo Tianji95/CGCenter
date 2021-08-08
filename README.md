@@ -10,13 +10,13 @@ a compute graphics learning &amp; coding center
 ### 引擎基本功能：
 
 - 加载模型
-  - [ ] obj
+  - [ ] obj    ——计划8月22日前完成
 - 摄像机
-  - [ ] 可漫游摄像机
+  - [ ] 可漫游摄像机  ——计划8月13日前完成
 - 几何体
-  - [ ] 球体 Sphere
-  - [ ] 平面 Plane
-  - [ ] 三角网格 TriMesh
+  - [ ] 球体 Sphere ——计划8月29日前完成
+  - [ ] 平面 Plane ——计划8月15日前完成
+  - [ ] 三角网格 TriMesh ——计划8月22日前完成
 - 材质
   - [ ] 玻璃 Glass
   - [ ] 镜子 Mirror
@@ -24,19 +24,19 @@ a compute graphics learning &amp; coding center
   - [ ] 金属工作流 Metal Workflow
   - [ ] 毛玻璃 Frosted Glass
 - 光源
-  - [ ] 点光源 pointLight
+  - [ ] 点光源 pointLight    ——计划8月15日前完成
   - [ ] 面光源 AreaLight
-  - [ ] 直接光 DirectionalLight
+  - [ ] 直接光 DirectionalLight  ——计划9月5日前完成
   - [ ] 聚光灯 SpotLight
 - 渲染管线
-  - [ ] 正向渲染 forward rendering
-  - [ ] 延迟渲染 deferred rendering
+  - [ ] 正向渲染 forward rendering  ——计划8月15日前完成
+  - [ ] 延迟渲染 deferred rendering ——计划9月5日前完成
   - [ ] 延迟光照 deferred lighting、light pre-pass
   - [ ] 延迟贴图 deferred texture
 
-### 阴影 Shadow
+### 阴影 Shadow 
 
-- [ ] CSM-hard
+- [ ] CSM-hard  ——计划9月12日前完成
 - [ ] shadow-bias
 - [ ] PCSS
 - [ ] VSM

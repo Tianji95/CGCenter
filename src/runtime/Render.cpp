@@ -2,6 +2,8 @@
 #include <GL/glew.h>
 #include "shader.h"
 #include <iostream>
+#include "shader.h"
+
 void Render::DrawScene() const
 {
 
@@ -14,50 +16,8 @@ void Render::DrawScene() const
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    unsigned int vertexShader;
-    unsigned int fragmentShader;
-    unsigned int shaderProgram;
-    {
-        vertexShader = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-        glCompileShader(vertexShader);
-        int  success;
-        char infoLog[512];
-        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-        if (!success) {
-            glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-            std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-        }
 
-        fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-        glCompileShader(fragmentShader);
-        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-        if (!success) {
-            glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-            std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-        }
-    }
-
-    {
-
-        shaderProgram = glCreateProgram();
-        glAttachShader(shaderProgram, vertexShader);
-        glAttachShader(shaderProgram, fragmentShader);
-        glLinkProgram(shaderProgram);
-        int  success;
-        char infoLog[512];
-        glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-        if (!success) {
-            glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-            std::cout << "ERROR::SHADER::LINKERROR\n" << infoLog << std::endl;
-        }
-    }
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-    glUseProgram(shaderProgram);
-
-    // ..:: 初始化代码（只运行一次 (除非你的物体频繁改变)） :: ..
+    Shader shader("F:/GitHub/CGCenter/src/shaders/test.vs", "F:/GitHub/CGCenter/src/shaders/test.fs");
     unsigned int VAO;
     glGenVertexArrays(1, &VAO);
     // 1. 绑定VAO
@@ -69,9 +29,7 @@ void Render::DrawScene() const
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    // ..:: 绘制代码（渲染循环中） :: ..
-    // 4. 绘制物体
-    glUseProgram(shaderProgram);
+    shader.use();
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
