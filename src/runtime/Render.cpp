@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 #include "shader.h"
 #include <iostream>
-#include "shader.h"
+
 
 void Render::DrawScene() const
 {
