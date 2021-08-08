@@ -18,6 +18,7 @@ void Render::DrawScene() const
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     Shader shader("F:/GitHub/CGCenter/src/shaders/test.vs", "F:/GitHub/CGCenter/src/shaders/test.fs");
+    shader.ProduceProgram();
     unsigned int VAO;
     glGenVertexArrays(1, &VAO);
     // 1. °ó¶¨VAO
