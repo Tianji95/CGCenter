@@ -16,6 +16,21 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     case GLFW_KEY_ESCAPE:
         glfwSetWindowShouldClose(window, GL_TRUE);
         break;
+    case GLFW_KEY_W:
+        UIFramework::Instance().camera->MoveForward(1);
+        break;
+    case GLFW_KEY_S:
+        UIFramework::Instance().camera->MoveBack(1);
+        break;
+
+    case GLFW_KEY_A:
+        UIFramework::Instance().camera->MoveLeft(1);
+        break;
+
+    case GLFW_KEY_D:
+        UIFramework::Instance().camera->MoveRight(1);
+        break;
+
     default:
         break;
     }

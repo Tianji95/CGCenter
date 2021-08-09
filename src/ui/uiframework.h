@@ -13,14 +13,25 @@
 class UIFramework
 {
 public:
-	UIFramework(){ }
-	~UIFramework() { }
+	static UIFramework& Instance()
+	{
+		static UIFramework ui;
+		return ui;
+	}
 	bool Init();
 	bool WindowShouldClose();
 	bool Draw();
 	bool Destroy();
-private:
 	Camera* camera = nullptr;
+private:
+	UIFramework()
+	{
+	}
+	~UIFramework()
+	{
+	}
+	UIFramework(const UIFramework&);
+	UIFramework& operator=(const UIFramework&);
 	Render* render = nullptr;
 	GLFWwindow* window = nullptr;
 	bool show_demo_window = true;

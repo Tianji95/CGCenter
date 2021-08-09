@@ -6,13 +6,13 @@
 
 int main(int, char**)
 {
-    UIFramework fwui;
-    fwui.Init();
+    ;
+    UIFramework::Instance().Init();
     // Main loop
-    while (!fwui.WindowShouldClose())
+    while (!UIFramework::Instance().WindowShouldClose())
     {
-        fwui.Draw();
+        UIFramework::Instance().Draw();
     }
-    fwui.Destroy();
+    UIFramework::Instance().Destroy();
     return 0;
 }
