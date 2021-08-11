@@ -7,7 +7,6 @@
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
 
-
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (action != GLFW_PRESS)
@@ -73,49 +72,34 @@ void framebuffer_size_callback(GLFWwindow* window, int w, int h)
     //glLoadIdentity();
 }
 
+static double lastX = 0;
+static double lastY = 0;
+static bool isFirstMouse = true;
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
     std::cout << "xpos:" << xpos << "   ypos:" << ypos << std::endl;
-    //if (firstMouse) // 这个bool变量初始时是设定为true的
-    //{
-    //    lastX = xpos;
-    //    lastY = ypos;
-    //    firstMouse = false;
-    //    //        return;
-    //}
-    //float xoffset = xpos - lastX;
-    //float yoffset = lastY - ypos;
-    //lastX = xpos;
-    //lastY = ypos;
+    if (isFirstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        isFirstMouse = false;
+    }
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos;
+    lastX = xpos;
+    lastY = ypos;
 
 
-    //float sensitivity = 0.05f;//灵敏度
-    //xoffset *= sensitivity;
-    //yoffset *= sensitivity;
-
-    //yaw += xoffset;
-    //pitch += yoffset;
-
-    //pitch = pitch > 89.0f ? 89.0f : pitch;
-    //pitch = pitch < -89.0f ? -89.0f : pitch;
-
-    //glm::vec3 front;
-    ////根据俯仰和偏航角度来算出此向量，也就是速度在三个维度的数值
-    //front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    //front.y = sin(glm::radians(pitch));
-    //front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch)) - 1;
+    float sensitivity = 0.05f;//灵敏度
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+    UIFramework::Instance().camera->RotateCamera(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     std::cout << "xoffset:" << xoffset << "   yoffset:" << yoffset << std::endl;
-
-    //if (fov >= 1.0f && fov <= 45.0f) {
-    //    fov -= yoffset;
-    //}
-
-    //fov = fov <= 1.0f ? 1.0f : fov;
-    //fov = fov >= 45.0f ? 45.0f : fov;
+    UIFramework::Instance().camera->AddFov(yoffset);
 }
 
 static void glfw_error_callback(int error, const char* description)
@@ -164,8 +148,9 @@ bool UIFramework::Init()
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    render = new Render();
     camera = new Camera();
+    render = new Render(camera);
+    render->GenResources();
 
     return true;
 }

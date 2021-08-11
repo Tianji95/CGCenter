@@ -77,6 +77,17 @@ void Shader::setFloat(const std::string& name, float value) const
     glUniform1f(glGetUniformLocation(programID, name.c_str()), value);
 }
 
+void Shader::SetMVP(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection) const
+{
+    GLuint MatrixID = glGetUniformLocation(programID, "Model");
+    glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &model[0][0]);
+
+    MatrixID = glGetUniformLocation(programID, "CameraView");
+    glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &view[0][0]);
+
+    MatrixID = glGetUniformLocation(programID, "CameraProjection");
+    glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &projection[0][0]);
+}
 
 void Shader::checkCompileErrors(unsigned int shader, std::string type)
 {
