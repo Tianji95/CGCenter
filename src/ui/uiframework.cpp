@@ -7,6 +7,10 @@
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
 
+static double lastX = 0;
+static double lastY = 0;
+static bool isFirstMouse = true;
+static bool rightButtonClick = false;
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (action != GLFW_PRESS)
@@ -36,20 +40,38 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
-    //if (action == GLFW_PRESS) switch (button) {
-    //case GLFW_MOUSE_BUTTON_LEFT:
-    //    strcpy(msg, "Mosue left button clicked!");
-    //    break;
-    //case GLFW_MOUSE_BUTTON_MIDDLE:
-    //    strcpy(msg, "Mosue middle button clicked!");
-    //    break;
-    //case GLFW_MOUSE_BUTTON_RIGHT:
-    //    strcpy(msg, "Mosue right button clicked!");
-    //    break;
-    //default:
-    //    return;
-    //}
-    //return;
+    switch (action) {
+    case GLFW_PRESS:
+    {
+        switch (button) {
+        case GLFW_MOUSE_BUTTON_LEFT:
+            break;
+        case GLFW_MOUSE_BUTTON_MIDDLE:
+            break;
+        case GLFW_MOUSE_BUTTON_RIGHT:
+            rightButtonClick = true;
+            break;
+        default:
+            return;
+        }
+        break;
+    }
+    case GLFW_RELEASE: {
+        switch (button) {
+        case GLFW_MOUSE_BUTTON_LEFT:
+            break;
+        case GLFW_MOUSE_BUTTON_MIDDLE:
+            break;
+        case GLFW_MOUSE_BUTTON_RIGHT:
+            rightButtonClick = false;
+            break;
+        default:
+            return;
+        }
+        break;
+    }
+    }
+    return;
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int w, int h)
@@ -72,9 +94,7 @@ void framebuffer_size_callback(GLFWwindow* window, int w, int h)
     //glLoadIdentity();
 }
 
-static double lastX = 0;
-static double lastY = 0;
-static bool isFirstMouse = true;
+
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
     std::cout << "xpos:" << xpos << "   ypos:" << ypos << std::endl;
@@ -89,11 +109,13 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
     lastX = xpos;
     lastY = ypos;
 
+    if (rightButtonClick) {
+        float sensitivity = 0.05f;//ÁéÃô¶È
+        xoffset *= sensitivity;
+        yoffset *= sensitivity;
 
-    float sensitivity = 0.05f;//ÁéÃô¶È
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-    UIFramework::Instance().camera->RotateCamera(xoffset, yoffset);
+        UIFramework::Instance().camera->RotateCamera(xoffset, yoffset);
+    }
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)

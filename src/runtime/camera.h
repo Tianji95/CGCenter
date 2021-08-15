@@ -35,7 +35,7 @@ private:
 	glm::mat4x4 viewMatrix;
 	glm::mat4x4 projectionMatrix;
 	float fov = 90;
-	float yaw = 0;
+	float yaw = -90;
 	float pitch = 0;
 };
 
