@@ -16,6 +16,7 @@ void Model::Draw()
 void Model::DeleteModel()
 {
 	for (Mesh* mesh : meshes) {
+		mesh->DeleteMesh();
 		delete mesh;
 	}
 	meshes.clear();

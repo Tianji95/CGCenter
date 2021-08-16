@@ -7,7 +7,6 @@ void Render::GenResources()
     assimpScene = aiImportFile("", aiProcessPreset_TargetRealtime_MaxQuality);
     scene = new Scene();
     scene->LoadScene();
-
 }
 
 void Render::DrawScene() const

@@ -75,4 +75,11 @@ void Mesh::Draw()
     glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
 }
 
+void Mesh::DeleteMesh()
+{
+    delete shader;
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &colorbuffer);
+    glDeleteVertexArrays(1, &VAO);
+}
 

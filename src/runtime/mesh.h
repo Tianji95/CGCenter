@@ -9,6 +9,7 @@ public:
 	~Mesh() = default;
 	void LoadMesh();
 	void Draw();
+	void DeleteMesh();
 private:
 	Shader* shader = nullptr;
 	unsigned int VBO = 0;
