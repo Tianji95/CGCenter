@@ -27,11 +27,17 @@
     <ClCompile Include="src\3rdpart\imgui\src\imgui_widgets.cpp" />
     <ClCompile Include="src\app\main.cpp" />
     <ClCompile Include="src\runtime\camera.cpp" />
+    <ClCompile Include="src\runtime\mesh.cpp" />
+    <ClCompile Include="src\runtime\model.cpp" />
     <ClCompile Include="src\runtime\Render.cpp" />
+    <ClCompile Include="src\runtime\scene.cpp" />
     <ClCompile Include="src\runtime\shader.cpp" />
     <ClCompile Include="src\ui\uiframework.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\runtime\mesh.h" />
+    <ClInclude Include="src\runtime\model.h" />
+    <ClInclude Include="src\runtime\scene.h" />
     <ClInclude Include="src\runtime\shader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -135,8 +141,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>.\libs\glfw\x64;.\libs\glew\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc142-mt.lib;IrrXML.lib;zlibstatic.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\libs\glfw\x64;.\libs\glew\Release\x64;.\libs\assimp\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
     <ClCompile>

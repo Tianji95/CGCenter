@@ -9,3 +9,5 @@ Release/*
 *.ilk
 *.log
 *.ini
+tools/*
+3dmodels/*
