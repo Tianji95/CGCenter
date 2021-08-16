@@ -18,15 +18,11 @@ public:
 	~Render() = default;
 	void GenResources();
 	void DrawScene() const;
+	void DeleteResources();
 private:
 	Camera* camera = nullptr;
-	Shader* shader = nullptr;
-	unsigned int VBO = 0;
-	unsigned int VAO = 0;
-	unsigned int colorbuffer = 0;
 	const aiScene* assimpScene = nullptr;
 	Scene* scene = nullptr;
-
 };
 
 #endif // !RENDER_H
