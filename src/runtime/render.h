@@ -4,6 +4,7 @@
 #include <assimp/cimport.h>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+
 #include "camera.h"
 #include "shader.h"
 #include "scene.h"
@@ -25,6 +26,7 @@ private:
 	unsigned int colorbuffer = 0;
 	const aiScene* assimpScene = nullptr;
 	Scene* scene = nullptr;
+
 };
 
 #endif // !RENDER_H

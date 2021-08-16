@@ -6,7 +6,6 @@ void Render::GenResources()
 {
     assimpScene = aiImportFile("", aiProcessPreset_TargetRealtime_MaxQuality);
 
-
     float vertices[] = {
     -1.0f,-1.0f,-1.0f, // triangle 1 : begin
     -1.0f,-1.0f, 1.0f,
