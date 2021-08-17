@@ -3,6 +3,14 @@
 #define MESH_H
 #include "shader.h"
 
+struct Vertex{
+	glm::vec3 Position;
+	glm::vec3 Normal;
+	glm::vec2 TexCoords;
+};
+struct Texture {
+	int id;
+};
 class Mesh {
 public:
 	Mesh() = default;
@@ -16,4 +24,5 @@ private:
 	unsigned int VAO = 0;
 	unsigned int colorbuffer = 0;
 };
+
 #endif // !MESH_H

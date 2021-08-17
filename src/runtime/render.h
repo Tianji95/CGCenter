@@ -1,9 +1,6 @@
 #pragma once
 #ifndef RENDER_H
 #define RENDER_H
-#include <assimp/cimport.h>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
 
 #include "camera.h"
 #include "shader.h"
@@ -21,7 +18,6 @@ public:
 	void DeleteResources();
 private:
 	Camera* camera = nullptr;
-	const aiScene* assimpScene = nullptr;
 	Scene* scene = nullptr;
 };
 

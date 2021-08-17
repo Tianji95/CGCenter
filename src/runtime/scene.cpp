@@ -2,7 +2,7 @@
 void Scene::LoadScene()
 {
 	Model* newmodel = new Model();
-	newmodel->LoadModel();
+	newmodel->LoadModel(std::string("F:/GitHub/CGCenter/3dmodels/1wo59wc1ii-wild town/wild town/wild town.obj"));
 	models.push_back(newmodel);
 
 }
