@@ -18,6 +18,7 @@ public:
 	void MoveBack(float distant);
 	void AddFov(float offset);
 	void RotateCamera(float yaw, float pitch);
+	void SetCameraSpeed(float spd);
 	glm::mat4x4 GetProjectionMatrix() const;
 	glm::mat4x4 GetViewMatirx() const;
 private:
@@ -26,14 +27,15 @@ private:
 private:
 	static constexpr float MAX_FOV = 120.0f;
 	static constexpr float NEAR_PLANE = 0.1f;
-	static constexpr float FAR_PLANE = 100.0f;
+	static constexpr float FAR_PLANE = 10000.0f;
 	static constexpr float ASPECT_RATIO = 4.0f / 3.0f;
 
-	glm::vec3 eye{ 0,0,0 };
-	glm::vec3 lookat{ 0,0,-1 };
+	glm::vec3 eye{ -4156.0,-113.0,-2492 };
+	glm::vec3 lookat{ -4156.0,-113.0,-2493 };
 	glm::vec3 up{0,1,0};
 	glm::mat4x4 viewMatrix;
 	glm::mat4x4 projectionMatrix;
+	float speed = 1.0f;
 	float fov = 90;
 	float yaw = -90;
 	float pitch = 0;

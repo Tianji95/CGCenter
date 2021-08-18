@@ -11,9 +11,6 @@ void Model::LoadModel(std::string& path)
 		return;
 	}
 	ProcessNode(assimpScene->mRootNode, assimpScene);
-	Mesh* newmesh = new Mesh();
-	newmesh->LoadMesh();
-	meshes.push_back(newmesh);
 }
 
 void Model::ProcessNode(aiNode* node, const aiScene* scene)
@@ -27,55 +24,65 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
 	for (int i = 0; i < node->mNumChildren; i++) {
 		this->ProcessNode(node->mChildren[i], scene);
 	}
-}
+} 
 
 void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
-	std::vector<int> indices;
-	std::vector<Texture> textures;
+	std::vector<unsigned int> indices;
+	// std::vector<Texture> textures;
 	for (int i = 0; i < mesh->mNumVertices; i++) {
-		glm::vec3 vector;
+		glm::vec3 pos;
 		Vertex vertex;
-		vector.x = mesh->mVertices[i].x;
-		vector.y = mesh->mVertices[i].y;
-		vector.z = mesh->mVertices[i].z;
-		vertex.Position = vector;
+		pos.x = mesh->mVertices[i].x;
+		pos.y = mesh->mVertices[i].y;
+		pos.z = mesh->mVertices[i].z;
+		vertex.position = pos;
+		if (mesh->mNormals) {
+			glm::vec3 normal;
+			normal.x = mesh->mNormals[i].x;
+			normal.y = mesh->mNormals[i].y;
+			normal.z = mesh->mNormals[i].z;
+			vertex.normal = normal;
+		}
+		else {
+			vertex.normal = glm::vec3(0.0f, 1.0f, 0.0f);
+		}
+
+		if (mesh->mTextureCoords[0]) {
+			glm::vec2 vec;
+			vec.x = mesh->mTextureCoords[0][i].x;
+			vec.y = mesh->mTextureCoords[0][i].y;
+			vertex.texCoords = vec;
+		}
+		else {
+			vertex.texCoords = glm::vec2(0.0f, 0.0f);
+		}
 		vertices.push_back(vertex);
 	}
+
 	for (int i = 0; i < mesh->mNumFaces; i++) {
 		aiFace face = mesh->mFaces[i];
-		for (int j = 0; j < face.mNumIndices; j++)
+		for (int j = 0; j < face.mNumIndices; j++) {
 			indices.push_back(face.mIndices[j]);
+		}
 	}
-	if (mesh->mTextureCoords[0]) {
-		glm::vec2 vec;
-		Vertex vertex;
-		//vec.x = mesh->mTextureCoords[0][i].x;
-		//vec.y = mesh->mTextureCoords[0][i].y;
-		vertex.TexCoords = vec;
-	}
-	else {
-		Vertex vertex;
-		vertex.TexCoords = glm::vec2(0.0f, 0.0f);
 
-	}
-	// Mesh(vertices, indices, textures);
+	meshes.push_back(std::make_shared<Mesh*>(new Mesh(vertices, indices, mesh->mName.C_Str())));
 	return;
 }
 
 void Model::Draw()
 {
-	for (Mesh* mesh : meshes) {
-		mesh->Draw();
+	for (auto mesh : meshes) {
+		(*mesh)->Draw();
 	}
 }
 
 void Model::DeleteModel()
 {
-	for (Mesh* mesh : meshes) {
-		mesh->DeleteMesh();
-		delete mesh;
+	for (auto mesh : meshes) {
+		(*mesh)->DeleteMesh();
 	}
 	meshes.clear();
 }

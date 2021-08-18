@@ -9,15 +9,15 @@ void Camera::MoveRight(float distant)
 {
 	glm::vec3 forwardDirection = glm::normalize(lookat - eye);
 	glm::vec3 direction = glm::cross(forwardDirection, up);
-	eye += direction * distant;
-	lookat += direction * distant;
+	eye += direction * distant * speed;
+	lookat += direction * distant * speed;
 	UpdateViewMatrix();
 }
 void Camera::MoveForward(float distant)
 {
 	glm::vec3 direction = glm::normalize(lookat - eye);
-	eye += direction * distant;
-	lookat += direction * distant;
+	eye += direction * distant * speed;
+	lookat += direction * distant * speed;
 	UpdateViewMatrix();
 }
 void Camera::MoveBack(float distant)
@@ -34,6 +34,10 @@ void Camera::AddFov(float offset)
 	fov = fov <= 1.0f ? 1.0f : fov;
 	fov = fov >= MAX_FOV ? MAX_FOV : fov;
 	UpdateProjectionMatrix();
+}
+void Camera::SetCameraSpeed(float spd)
+{
+	speed = spd;
 }
 
 void Camera::UpdateProjectionMatrix()
