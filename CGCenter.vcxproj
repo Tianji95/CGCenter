@@ -35,6 +35,7 @@
     <ClCompile Include="src\ui\uiframework.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\3rdpart\stb_image.h" />
     <ClInclude Include="src\runtime\mesh.h" />
     <ClInclude Include="src\runtime\model.h" />
     <ClInclude Include="src\runtime\scene.h" />
@@ -135,8 +136,8 @@
       <AdditionalIncludeDirectories>.\src\3rdpart\;.\src\3rdpart\imgui\include;.\src\app;.\src\3rdpart\glew\include;.\src\ui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>.\libs\glfw\x64;.\libs\glew\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OpenGL32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\libs\glfw\x64;.\libs\glew\Release\x64;.\libs\assimp\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc142-mt.lib;IrrXML.lib;zlibstatic.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

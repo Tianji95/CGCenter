@@ -10,16 +10,16 @@ struct Vertex{
 	glm::vec2 texCoords;
 };
 
-//struct Texture {
-//	int id;
-//};
-
-
+struct Texture {
+	unsigned int id;
+	std::string type;
+	std::string path;
+};
 
 class Mesh {
 public:
 	Mesh() = default;
-	Mesh(std::vector<Vertex>& verts, std::vector<unsigned int>& inds, const char* nm) :vertices(verts), indices(inds), name(nm){
+	Mesh(std::vector<Vertex>& verts, std::vector<unsigned int>& inds, std::vector<Texture> texs, const char* nm) :vertices(verts), indices(inds), textures(texs), name(nm){
 		LoadMesh();
 	}
 	~Mesh() = default;
@@ -36,6 +36,7 @@ private:
 	unsigned int VAO = 0;
 	unsigned int IBO = 0;
 	unsigned int colorbuffer = 0;
+	std::vector<Texture> textures;
 };
 
 #endif // !MESH_H

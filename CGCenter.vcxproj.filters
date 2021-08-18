@@ -71,5 +71,8 @@
     <ClInclude Include="src\runtime\mesh.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\3rdpart\stb_image.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "mesh.h"
+
 class Model {
 public:
 	Model() = default;
@@ -21,8 +22,10 @@ public:
 private:
 	void ProcessNode(aiNode* node, const aiScene* scene);
 	void ProcessMesh(aiMesh* mesh, const aiScene* scene);
+	unsigned int TextureFromFile(const char* path, const std::string& directory);
+	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 	std::vector<std::shared_ptr<Mesh*>> meshes;
-
+	std::vector<Texture> textures_loaded;
 };
 
 #endif // !MODEL_H
