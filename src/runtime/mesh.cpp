@@ -32,7 +32,6 @@ void Mesh::Draw()
     shader->use();
     glBindVertexArray(VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-    // glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
     for (auto texture : textures) {
         if (texture.type == "texture_diffuse") {
             glActiveTexture(GL_TEXTURE0);

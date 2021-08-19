@@ -86,6 +86,8 @@ void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
 void Model::Draw()
 {
+	glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	for (auto mesh : meshes) {
 		(*mesh)->Draw();
 	}
@@ -103,13 +105,13 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 		std::cout << std::string(str.C_Str()) << std::endl;   // ---> emtyp string
 		// check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
 		bool skip = false;
-		for (unsigned int j = 0; j < textures_loaded.size(); j++) {
-			if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0) {
-				textures.push_back(textures_loaded[j]);
-				skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
-				break;
-			}
-		}
+		//for (unsigned int j = 0; j < textures_loaded.size(); j++) {
+		//	if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0) {
+		//		textures.push_back(textures_loaded[j]);
+		//		skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
+		//		break;
+		//	}
+		//}
 		if (!skip) {   // if texture hasn't been loaded already, load it
 			Texture texture;
 			texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/1wo59wc1ii-wild town/wild town");
@@ -133,6 +135,7 @@ unsigned int Model::TextureFromFile(const char* path, const std::string& directo
 
 	int width, height, nrComponents;
 	unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+
 	if (data) {
 		GLenum format=3;
 		if (nrComponents == 1)
@@ -143,6 +146,7 @@ unsigned int Model::TextureFromFile(const char* path, const std::string& directo
 			format = GL_RGBA;
 
 		glBindTexture(GL_TEXTURE_2D, textureID);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // read texture use 1 Byte alighment, avoid crash using 4 Byte alighment
 		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
