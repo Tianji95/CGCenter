@@ -62,23 +62,31 @@ void Camera::RotateCamera(float deltayaw, float deltapitch)
 {
 	pitch += deltapitch;
 	yaw += deltayaw;
-	 
+
 	//根据俯仰和偏航角度来算出此向量，也就是速度在三个维度的数值
 	glm::vec3 alpha(1.0f, 1.0f, 1.0f);
-	lookat.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch)); 
+	lookat.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	//if (cos(glm::radians(yaw)) < 0 && cos(glm::radians(pitch)) > 0) {
+	//	lookat.x = -lookat.x;
+	//}
 	lookat.y = sin(glm::radians(pitch));
-	lookat.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch)) - 1;
+	lookat.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
 	lookat = glm::normalize(lookat) + eye;
-
-	//glm::vec3 right(1.0f, 1.0f, 1.0f);
-	//right.x = -cos(yaw);
-	//right.y = 0.0;
-	//right.z = sin(yaw);
-	//right = glm::normalize(right);
-
-	//up = glm::cross(right, lookat - eye);
-
+	while (pitch > 360.0f) {
+		pitch -= 360.0f;
+	}
+	while (pitch < -360.0f) {
+		pitch += 360.0f;
+	}
+	if ((pitch < 90.0 && pitch > -90) || (pitch < -270.0f) || pitch > 270.0f) {
+		up = glm::vec3(0, 1, 0);
+	}
+	else {
+		up = glm::vec3(0, -1, 0);
+	}
+	std::cout << "pitch : " << pitch << std::endl;
+	std::cout << "yaw : " << yaw << std::endl;
 	UpdateViewMatrix();
 }
 

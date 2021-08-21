@@ -20,10 +20,12 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
 	for (int i = 0; i < node->mNumMeshes; i++) {
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		this->ProcessMesh(mesh, scene);
+		//break;
 	}
 	// 递归处理该节点的子孙节点  
 	for (int i = 0; i < node->mNumChildren; i++) {
 		this->ProcessNode(node->mChildren[i], scene);
+		//break;
 	}
 } 
 
@@ -31,7 +33,7 @@ void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	// std::vector<Texture> textures;
+	std::vector<Texture> textures;
 	for (int i = 0; i < mesh->mNumVertices; i++) {
 		glm::vec3 pos;
 		Vertex vertex;
@@ -68,7 +70,6 @@ void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 			indices.push_back(face.mIndices[j]);
 		}
 	}
-	std::vector<Texture> textures;
 
 	if (mesh->mMaterialIndex >= 0) {
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
@@ -105,13 +106,13 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 		std::cout << std::string(str.C_Str()) << std::endl;   // ---> emtyp string
 		// check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
 		bool skip = false;
-		//for (unsigned int j = 0; j < textures_loaded.size(); j++) {
-		//	if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0) {
-		//		textures.push_back(textures_loaded[j]);
-		//		skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
-		//		break;
-		//	}
-		//}
+		for (unsigned int j = 0; j < textures_loaded.size(); j++) {
+			if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0) {
+				textures.push_back(textures_loaded[j]);
+				skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
+				break;
+			}
+		}
 		if (!skip) {   // if texture hasn't been loaded already, load it
 			Texture texture;
 			texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/1wo59wc1ii-wild town/wild town");

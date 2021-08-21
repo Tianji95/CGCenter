@@ -97,7 +97,6 @@ void framebuffer_size_callback(GLFWwindow* window, int w, int h)
 
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    std::cout << "xpos:" << xpos << "   ypos:" << ypos << std::endl;
     if (isFirstMouse)
     {
         lastX = xpos;

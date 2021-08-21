@@ -10,7 +10,7 @@ a compute graphics learning &amp; coding center
 ### 引擎基本功能：
 
 - 加载模型
-  - [ ] obj    ——计划8月22日前完成
+  - [x] obj    ——计划8月22日前完成
 - 摄像机
   - [x] 可漫游摄像机  ——计划8月13日前完成
 - 几何体
@@ -29,7 +29,7 @@ a compute graphics learning &amp; coding center
   - [ ] 直接光 DirectionalLight  ——计划9月5日前完成
   - [ ] 聚光灯 SpotLight
 - 渲染管线
-  - [ ] 正向渲染 forward rendering  ——计划8月15日前完成
+  - [x] 正向渲染 forward rendering  ——计划8月15日前完成
   - [ ] 延迟渲染 deferred rendering ——计划9月5日前完成
   - [ ] 延迟光照 deferred lighting、light pre-pass
   - [ ] 延迟贴图 deferred texture
