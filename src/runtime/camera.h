@@ -30,8 +30,8 @@ private:
 	static constexpr float FAR_PLANE = 10000.0f;
 	static constexpr float ASPECT_RATIO = 4.0f / 3.0f;
 
-	glm::vec3 eye{ -4156.0,-113.0,-2492 };
-	glm::vec3 lookat{ -4156.0,-113.0,-2493 };
+	glm::vec3 eye{ 0,0,0 };//{ -4156.0, -113.0, -2492 };
+	glm::vec3 lookat{ 0,0,-1 };//{ -4156.0, -113.0, -2493 };
 	glm::vec3 up{0,1,0};
 	glm::mat4x4 viewMatrix;
 	glm::mat4x4 projectionMatrix;

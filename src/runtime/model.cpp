@@ -1,12 +1,13 @@
 #include "model.h"
 #include <iostream>
+#include <unordered_map>
 #include <GL/glew.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 void Model::LoadModel(std::string& path)
 {
 	Assimp::Importer import;
-	const aiScene* assimpScene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene* assimpScene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_ConvertToLeftHanded | aiProcessPreset_TargetRealtime_Quality);
 	if (!assimpScene || assimpScene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !assimpScene->mRootNode) {
 		std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
 		return;
@@ -20,12 +21,10 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
 	for (int i = 0; i < node->mNumMeshes; i++) {
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		this->ProcessMesh(mesh, scene);
-		//break;
 	}
 	// 递归处理该节点的子孙节点  
 	for (int i = 0; i < node->mNumChildren; i++) {
 		this->ProcessNode(node->mChildren[i], scene);
-		//break;
 	}
 } 
 
@@ -72,15 +71,34 @@ void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	}
 
 	if (mesh->mMaterialIndex >= 0) {
-		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-		std::vector<Texture> diffuseMaps = loadMaterialTextures(material,
-			aiTextureType_DIFFUSE, "texture_diffuse");
-		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-		std::vector<Texture> specularMaps = loadMaterialTextures(material,
-			aiTextureType_SPECULAR, "texture_specular");
-		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-	}
+		std::unordered_map<aiTextureType, std::string> mp = {
+			{aiTextureType_DIFFUSE, "texture_diffuse"},
+			{aiTextureType_SPECULAR, "texture_specular"},
+			{aiTextureType_AMBIENT, "texture_ambient"},
+			{aiTextureType_EMISSIVE, "texture_emissive"},
+			{aiTextureType_HEIGHT, "texture_height"},
+			{aiTextureType_NORMALS, "texture_normals"},
+			{aiTextureType_SHININESS, "texture_shininess"},
+			{aiTextureType_OPACITY, "texture_opacity"},
+			{aiTextureType_DISPLACEMENT, "texture_displacement"},
+			{aiTextureType_LIGHTMAP, "texture_lightmap"},
+			{aiTextureType_REFLECTION, "texture_reflection"},
+			{aiTextureType_BASE_COLOR, "texture_basecolor"},
+			{aiTextureType_NORMAL_CAMERA, "texture_normal_camera"},
+			{aiTextureType_EMISSION_COLOR, "texture_emission_color"},
+			{aiTextureType_METALNESS, "texture_metalness"},
+			{aiTextureType_DIFFUSE_ROUGHNESS, "texture_diffuse_roughness"},
+			{aiTextureType_AMBIENT_OCCLUSION, "texture_ambient_occlusion"}
 
+		};
+
+		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+		for (auto iter : mp) {
+			std::vector<Texture> maps = loadMaterialTextures(material,
+				iter.first, iter.second);
+			textures.insert(textures.end(), maps.begin(), maps.end());
+		}
+	}
 	meshes.push_back(std::make_shared<Mesh*>(new Mesh(vertices, indices, textures, mesh->mName.C_Str())));
 	return;
 }
@@ -89,6 +107,8 @@ void Model::Draw()
 {
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	for (auto mesh : meshes) {
 		(*mesh)->Draw();
 	}
@@ -115,7 +135,9 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 		}
 		if (!skip) {   // if texture hasn't been loaded already, load it
 			Texture texture;
-			texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/1wo59wc1ii-wild town/wild town");
+			//texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/Kitchen/Kitchen/");
+			texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/bedroom/");
+
 			texture.type = typeName;
 			texture.path = str.C_Str();   // ---> emtyp string
 			textures.push_back(texture);

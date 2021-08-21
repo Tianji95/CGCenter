@@ -13,7 +13,7 @@ static bool isFirstMouse = true;
 static bool rightButtonClick = false;
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    if (action != GLFW_PRESS)
+    if (action != GLFW_PRESS && action != GLFW_REPEAT)
         return;
     switch (key) {
     case GLFW_KEY_ESCAPE:
@@ -197,7 +197,7 @@ bool UIFramework::Draw()
         ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
         ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
         
-        if (ImGui::SliderFloat("camera speed", &f, 1.0f, 1000.0f)) {
+        if (ImGui::SliderFloat("camera speed", &f, 0.1f, 100.0f)) {
             camera->SetCameraSpeed(f);
         }
         ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color

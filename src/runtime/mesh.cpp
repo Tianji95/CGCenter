@@ -38,7 +38,8 @@ void Mesh::Draw()
             glBindTexture(GL_TEXTURE_2D, texture.id);
         }
     }
-    glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, 0);
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
 void Mesh::DeleteMesh()
