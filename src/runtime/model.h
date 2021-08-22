@@ -8,6 +8,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "mesh.h"
+#include "shaderBase.h"
 
 class Model {
 public:
@@ -26,6 +27,9 @@ private:
 	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 	std::vector<std::shared_ptr<Mesh*>> meshes;
 	std::vector<Texture> textures_loaded;
+
+	std::shared_ptr<ShaderBase> testProgram;
+	std::shared_ptr<ShaderBase> mainProgram;
 };
 
 #endif // !MODEL_H

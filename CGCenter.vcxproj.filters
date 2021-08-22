@@ -42,10 +42,10 @@
     <ClCompile Include="src\runtime\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\runtime\Render.cpp">
+    <ClCompile Include="src\runtime\render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\runtime\shader.cpp">
+    <ClCompile Include="src\runtime\shaderBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\runtime\scene.cpp">
@@ -57,9 +57,12 @@
     <ClCompile Include="src\runtime\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\runtime\light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\runtime\shader.h">
+    <ClInclude Include="src\runtime\shaderBase.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\runtime\scene.h">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\3rdpart\stb_image.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\runtime\light.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

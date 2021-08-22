@@ -1,10 +1,10 @@
-#include "shader.h"
+#include "shaderBase.h"
 
 #include <GL/glew.h> // 包含glad来获取所有的必须OpenGL头文件
 #include <sstream>
 #include <fstream>
 #include <iostream>
-void Shader::ProduceProgram()
+void ShaderBase::ProduceProgram()
 {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
@@ -57,27 +57,32 @@ void Shader::ProduceProgram()
     glDeleteShader(fragment);
 }
 
-void Shader::use()
+unsigned int ShaderBase::GetID()
+{
+    return programID;
+}
+
+void ShaderBase::use()
 {
     glUseProgram(programID);
 }
 
-void Shader::setBool(const std::string& name, bool value) const
+void ShaderBase::setBool(const std::string& name, bool value) const
 {
     glUniform1i(glGetUniformLocation(programID, name.c_str()), (int)value);
 }
 
-void Shader::setInt(const std::string& name, int value) const
+void ShaderBase::setInt(const std::string& name, int value) const
 {
     glUniform1i(glGetUniformLocation(programID, name.c_str()), value);
 }
 
-void Shader::setFloat(const std::string& name, float value) const
+void ShaderBase::setFloat(const std::string& name, float value) const
 {
     glUniform1f(glGetUniformLocation(programID, name.c_str()), value);
 }
 
-void Shader::SetMVP(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection) const
+void ShaderBase::SetMVP(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection) const
 {
     GLuint MatrixID = glGetUniformLocation(programID, "Model");
     glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &model[0][0]);
@@ -89,7 +94,7 @@ void Shader::SetMVP(const glm::mat4& model, const glm::mat4& view, const glm::ma
     glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &projection[0][0]);
 }
 
-void Shader::checkCompileErrors(unsigned int shader, std::string type)
+void ShaderBase::checkCompileErrors(unsigned int shader, std::string type)
 {
     int success;
     char infoLog[1024];

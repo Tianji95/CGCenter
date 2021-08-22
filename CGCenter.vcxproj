@@ -27,19 +27,21 @@
     <ClCompile Include="src\3rdpart\imgui\src\imgui_widgets.cpp" />
     <ClCompile Include="src\app\main.cpp" />
     <ClCompile Include="src\runtime\camera.cpp" />
+    <ClCompile Include="src\runtime\light.cpp" />
     <ClCompile Include="src\runtime\mesh.cpp" />
     <ClCompile Include="src\runtime\model.cpp" />
-    <ClCompile Include="src\runtime\Render.cpp" />
+    <ClCompile Include="src\runtime\render.cpp" />
     <ClCompile Include="src\runtime\scene.cpp" />
-    <ClCompile Include="src\runtime\shader.cpp" />
+    <ClCompile Include="src\runtime\shaderBase.cpp" />
     <ClCompile Include="src\ui\uiframework.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\3rdpart\stb_image.h" />
+    <ClInclude Include="src\runtime\light.h" />
     <ClInclude Include="src\runtime\mesh.h" />
     <ClInclude Include="src\runtime\model.h" />
     <ClInclude Include="src\runtime\scene.h" />
-    <ClInclude Include="src\runtime\shader.h" />
+    <ClInclude Include="src\runtime\shaderBase.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

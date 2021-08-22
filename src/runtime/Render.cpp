@@ -1,6 +1,7 @@
 #include "render.h"
-#include <GL/glew.h>
+
 #include <iostream>
+
 
 void Render::GenResources()
 {
@@ -10,6 +11,7 @@ void Render::GenResources()
 
 void Render::DrawScene() const
 {
+    glPolygonMode(GL_FRONT_AND_BACK, RENDER_MODE_MAP.at(rendermode));
     scene->Draw();
 }
 
@@ -17,4 +19,3 @@ void Render::DeleteResources()
 {
     delete scene;
 }
-

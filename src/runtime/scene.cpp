@@ -21,4 +21,8 @@ void Scene::DeleteScene()
 		delete model;
 	}
 	models.clear();
+	for (Light* light : lights) {
+		delete light;
+	}
+	lights.clear();
 }

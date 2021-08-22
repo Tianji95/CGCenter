@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "model.h"
+#include "light.h"
 
 class Scene {
 public:
@@ -17,5 +18,6 @@ public:
 	void DeleteScene();
 private:
 	std::vector<Model*> models;
+	std::vector<Light*> lights;
 };
 #endif // !SCENE_H

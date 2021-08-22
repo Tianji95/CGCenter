@@ -190,22 +190,25 @@ bool UIFramework::Draw()
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
     {
-        static int counter = 0;
         static float f = 0;
-        ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-        ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+        ImGui::Begin("Hello, world!"); 
         
         if (ImGui::SliderFloat("camera speed", &f, 0.1f, 100.0f)) {
             camera->SetCameraSpeed(f);
         }
         ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
-        if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-            counter++;
-        ImGui::SameLine();
-        ImGui::Text("counter = %d", counter);
+        if (ImGui::BeginCombo("##Draw Mode", render->renderModeList[render->rendermode])) {
+            for (int n = 0; n < IM_ARRAYSIZE(render->renderModeList); n++) {
+                bool is_selected = (render->renderModeList[render->rendermode] == render->renderModeList[n]); // You can store your selection however you want, outside or inside your objects
+                if (ImGui::Selectable(render->renderModeList[n], is_selected))
+                {
+                   render->rendermode = n;
+                }
+            }
+            ImGui::EndCombo();
+        }
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         ImGui::End();

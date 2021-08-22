@@ -1,15 +1,15 @@
 #pragma once
-#ifndef SHADER_H
-#define SHADER_H
+#ifndef SHADER_BASE_H
+#define SHADER_BASE_H
 
 #include <string>
 #include <glm/mat4x4.hpp>
 
-class Shader {
+class ShaderBase {
 public:
-    Shader(const std::string& vertexPath, const std::string& fragmentPath) 
+    ShaderBase(const std::string& vertexPath, const std::string& fragmentPath)
         : m_vertexPath(vertexPath), m_fragmentPath(fragmentPath){ }
-    ~Shader()
+    ~ShaderBase()
     {
     }
 
@@ -19,6 +19,7 @@ public:
     void setInt(const std::string& name, int value) const;
     void setFloat(const std::string& name, float value) const;
     void SetMVP(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection) const;
+    unsigned int GetID();
 
 private:
     std::string m_vertexPath;

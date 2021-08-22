@@ -10,21 +10,21 @@ a compute graphics learning &amp; coding center
 ### 引擎基本功能：
 
 - 加载模型
-  - [x] obj    ——计划8月22日前完成
+  - [x] obj
 - 摄像机
-  - [x] 可漫游摄像机  ——计划8月13日前完成
+  - [x] 可漫游摄像机
 - 几何体
   - [ ] 球体 Sphere ——计划8月29日前完成
-  - [x] 平面 Plane ——计划8月15日前完成
-  - [ ] 三角网格 TriMesh ——计划8月22日前完成
+  - [x] 平面 Plane
+  - [x] 三角网格 TriMesh
 - 材质
   - [ ] 玻璃 Glass
   - [ ] 镜子 Mirror
-  - [ ] 漫反射 Diffuse
+  - [x] 漫反射 Diffuse
   - [ ] 金属工作流 Metal Workflow
   - [ ] 毛玻璃 Frosted Glass
 - 光源
-  - [ ] 点光源 pointLight    ——计划8月15日前完成
+  - [ ] 点光源 pointLight —— 计划8月15日前完成
   - [ ] 面光源 AreaLight
   - [ ] 直接光 DirectionalLight  ——计划9月5日前完成
   - [ ] 聚光灯 SpotLight

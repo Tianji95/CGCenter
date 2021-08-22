@@ -4,10 +4,18 @@
 #include <GL/glew.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include "uiframework.h"
+
 void Model::LoadModel(std::string& path)
 {
+	testProgram = std::make_shared<ShaderBase>("F:/GitHub/CGCenter/src/shaders/test.vert", "F:/GitHub/CGCenter/src/shaders/test.frag");
+	testProgram->ProduceProgram();
+
+	mainProgram = std::make_shared<ShaderBase>("F:/GitHub/CGCenter/src/shaders/main.vert", "F:/GitHub/CGCenter/src/shaders/main.frag");
+	mainProgram->ProduceProgram();
+
 	Assimp::Importer import;
-	const aiScene* assimpScene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_ConvertToLeftHanded | aiProcessPreset_TargetRealtime_Quality);
+	const aiScene* assimpScene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenUVCoords);
 	if (!assimpScene || assimpScene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !assimpScene->mRootNode) {
 		std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
 		return;
@@ -32,7 +40,6 @@ void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	std::vector<Texture> textures;
 	for (int i = 0; i < mesh->mNumVertices; i++) {
 		glm::vec3 pos;
 		Vertex vertex;
@@ -69,7 +76,7 @@ void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 			indices.push_back(face.mIndices[j]);
 		}
 	}
-
+	Material mat;
 	if (mesh->mMaterialIndex >= 0) {
 		std::unordered_map<aiTextureType, std::string> mp = {
 			{aiTextureType_DIFFUSE, "texture_diffuse"},
@@ -96,10 +103,24 @@ void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		for (auto iter : mp) {
 			std::vector<Texture> maps = loadMaterialTextures(material,
 				iter.first, iter.second);
-			textures.insert(textures.end(), maps.begin(), maps.end());
+			mat.texs.insert(mat.texs.end(), maps.begin(), maps.end());
 		}
+		aiColor3D color;
+		material->Get(AI_MATKEY_COLOR_DIFFUSE, color); mat.colorDiffuse = glm::vec3(color.r, color.g, color.b);
+		material->Get(AI_MATKEY_COLOR_SPECULAR, color); mat.colorSpecular = glm::vec3(color.r, color.g, color.b);
+		material->Get(AI_MATKEY_COLOR_AMBIENT, color); mat.colorAmbiend = glm::vec3(color.r, color.g, color.b);
+		material->Get(AI_MATKEY_COLOR_EMISSIVE, color); mat.colorEmissive = glm::vec3(color.r, color.g, color.b);
+		material->Get(AI_MATKEY_COLOR_TRANSPARENT, color); mat.colorTransparent = glm::vec3(color.r, color.g, color.b);
+		material->Get(AI_MATKEY_OPACITY, mat.opacity);
+		material->Get(AI_MATKEY_SHININESS, mat.shininess);
+		material->Get(AI_MATKEY_SHININESS_STRENGTH, mat.shininessStrength);
+		material->Get(AI_MATKEY_REFLECTIVITY, mat.reflection);
+		material->Get(AI_MATKEY_REFRACTI, mat.refraction);
+		material->Get(AI_MATKEY_TRANSPARENCYFACTOR, mat.transparentFactor);
+		material->Get(AI_MATKEY_SHADING_MODEL, mat.shadingModel);
+		material->Get(AI_MATKEY_BLEND_FUNC, mat.blendFunc);
 	}
-	meshes.push_back(std::make_shared<Mesh*>(new Mesh(vertices, indices, textures, mesh->mName.C_Str())));
+	meshes.push_back(std::make_shared<Mesh*>(new Mesh(vertices, indices, mat, mesh->mName.C_Str(), mainProgram)));
 	return;
 }
 
@@ -109,6 +130,10 @@ void Model::Draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+
+	glm::mat4 modelMatrix = glm::mat4(1.0);
+	mainProgram->SetMVP(modelMatrix, UIFramework::Instance().camera->GetViewMatirx(), UIFramework::Instance().camera->GetProjectionMatrix());
+	mainProgram->use();
 	for (auto mesh : meshes) {
 		(*mesh)->Draw();
 	}

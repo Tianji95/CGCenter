@@ -1,6 +1,5 @@
 #include "mesh.h"
 #include <GL/glew.h>
-#include "uiframework.h"
 
 void Mesh::LoadMesh()
 {
@@ -10,8 +9,6 @@ void Mesh::LoadMesh()
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*vertices.size(), vertices.data(), GL_STATIC_DRAW);
-    shader = new Shader("F:/GitHub/CGCenter/src/shaders/test.vert", "F:/GitHub/CGCenter/src/shaders/test.frag");
-    shader->ProduceProgram();
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -27,24 +24,19 @@ void Mesh::LoadMesh()
 }
 void Mesh::Draw()
 {
-    glm::mat4 modelMatrix = glm::mat4(1.0);
-    shader->SetMVP(modelMatrix, UIFramework::Instance().camera->GetViewMatirx(), UIFramework::Instance().camera->GetProjectionMatrix());
-    shader->use();
     glBindVertexArray(VAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-    for (auto texture : textures) {
-        if (texture.type == "texture_diffuse") {
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, texture.id);
-        }
+    for (unsigned int i = 0; i < material.texs.size(); i++) {
+        auto textureID = glGetUniformLocation(program->GetID(), material.texs[i].type.c_str());
+        glActiveTexture(GL_TEXTURE0+i);
+        glBindTexture(GL_TEXTURE_2D, material.texs[i].id);
+        glUniform1i(textureID, i);
     }
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
 void Mesh::DeleteMesh()
 {
-    delete shader;
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &IBO);
     glDeleteVertexArrays(1, &VAO);
