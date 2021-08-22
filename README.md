@@ -33,6 +33,7 @@ a compute graphics learning &amp; coding center
   - [ ] 延迟渲染 deferred rendering ——计划9月5日前完成
   - [ ] 延迟光照 deferred lighting、light pre-pass
   - [ ] 延迟贴图 deferred texture
+- 拾取功能
 
 ### 阴影 Shadow 
 

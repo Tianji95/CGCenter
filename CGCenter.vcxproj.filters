@@ -60,6 +60,9 @@
     <ClCompile Include="src\runtime\light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\runtime\directLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\runtime\shaderBase.h">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\runtime\light.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\runtime\directLight.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

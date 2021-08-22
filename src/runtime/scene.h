@@ -3,6 +3,7 @@
 #define SCENE_H
 #include <vector>
 #include <string>
+#include <memory>
 #include "model.h"
 #include "light.h"
 
@@ -17,7 +18,7 @@ public:
 	void Draw();
 	void DeleteScene();
 private:
-	std::vector<Model*> models;
-	std::vector<Light*> lights;
+	std::vector<std::shared_ptr<Model>> models;
+	std::vector<std::shared_ptr<Light>> lights;
 };
 #endif // !SCENE_H
