@@ -1,6 +1,7 @@
 #include "model.h"
 #include <iostream>
 #include <unordered_map>
+#include <glm/glm.hpp>
 #include <GL/glew.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -134,6 +135,68 @@ void Model::Draw()
 	glm::mat4 modelMatrix = glm::mat4(1.0);
 	mainProgram->SetMVP(modelMatrix, UIFramework::Instance().camera->GetViewMatirx(), UIFramework::Instance().camera->GetProjectionMatrix());
 	mainProgram->use();
+	glm::vec3 pointLightPositions[] = {
+		glm::vec3(0.7f,  0.2f,  2.0f),
+		glm::vec3(2.3f, -3.3f, -4.0f),
+		glm::vec3(-4.0f,  2.0f, -12.0f),
+		glm::vec3(0.0f,  0.0f, -3.0f)
+	};
+
+	mainProgram->setInt("material.diffuse", 0);
+	mainProgram->setInt("material.specular", 1);
+	mainProgram->setVec3("viewPos", UIFramework::Instance().camera->GetPosition());
+	mainProgram->setFloat("material.shininess", 32.0f);
+	// directional light
+	mainProgram->setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+	mainProgram->setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+	mainProgram->setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+	mainProgram->setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+	// point light 1
+	mainProgram->setVec3("pointLights[0].position", pointLightPositions[0]);
+	mainProgram->setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+	mainProgram->setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+	mainProgram->setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+	mainProgram->setFloat("pointLights[0].constant", 1.0f);
+	mainProgram->setFloat("pointLights[0].linear", 0.09);
+	mainProgram->setFloat("pointLights[0].quadratic", 0.032);
+	// point light 2
+	mainProgram->setVec3("pointLights[1].position", pointLightPositions[1]);
+	mainProgram->setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+	mainProgram->setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+	mainProgram->setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+	mainProgram->setFloat("pointLights[1].constant", 1.0f);
+	mainProgram->setFloat("pointLights[1].linear", 0.09);
+	mainProgram->setFloat("pointLights[1].quadratic", 0.032);
+	// point light 3
+	mainProgram->setVec3("pointLights[2].position", pointLightPositions[2]);
+	mainProgram->setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+	mainProgram->setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+	mainProgram->setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+	mainProgram->setFloat("pointLights[2].constant", 1.0f);
+	mainProgram->setFloat("pointLights[2].linear", 0.09);
+	mainProgram->setFloat("pointLights[2].quadratic", 0.032);
+	// point light 4
+	mainProgram->setVec3("pointLights[3].position", pointLightPositions[3]);
+	mainProgram->setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+	mainProgram->setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+	mainProgram->setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+	mainProgram->setFloat("pointLights[3].constant", 1.0f);
+	mainProgram->setFloat("pointLights[3].linear", 0.09);
+	mainProgram->setFloat("pointLights[3].quadratic", 0.032);
+	// spotLight
+
+	mainProgram->setVec3("spotLight.position", UIFramework::Instance().camera->GetPosition());
+	mainProgram->setVec3("spotLight.direction", UIFramework::Instance().camera->GetLookAt());
+	mainProgram->setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+	mainProgram->setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+	mainProgram->setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+	mainProgram->setFloat("spotLight.constant", 1.0f);
+	mainProgram->setFloat("spotLight.linear", 0.09);
+	mainProgram->setFloat("spotLight.quadratic", 0.032);
+	mainProgram->setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+	mainProgram->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+
+
 	for (auto mesh : meshes) {
 		(*mesh)->Draw();
 	}
@@ -161,7 +224,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 		if (!skip) {   // if texture hasn't been loaded already, load it
 			Texture texture;
 			//texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/Kitchen/Kitchen/");
-			texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/home_v001/");
+			texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/home_v002/");
 
 			texture.type = typeName;
 			texture.path = str.C_Str();   // ---> emtyp string

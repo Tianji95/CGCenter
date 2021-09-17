@@ -3,7 +3,7 @@ void Scene::LoadScene()
 {
 	auto newmodel = std::make_shared<Model>();
 	// newmodel->LoadModel(std::string("F:/GitHub/CGCenter/3dmodels/backpack/backpack.obj"));
-	newmodel->LoadModel(std::string("F:/GitHub/CGCenter/3dmodels/home_v001/home_v001.obj"));
+	newmodel->LoadModel(std::string("F:/GitHub/CGCenter/3dmodels/home_v002/home_v002.obj"));
 	models.push_back(newmodel);
 }
 

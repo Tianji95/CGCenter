@@ -95,3 +95,11 @@ glm::mat4x4 Camera::GetViewMatirx() const
 	return viewMatrix;
 }
 
+glm::vec3 Camera::GetPosition() const
+{
+	return eye;
+}
+glm::vec3 Camera::GetLookAt()  const
+{
+	return lookat;
+}

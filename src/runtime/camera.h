@@ -19,6 +19,8 @@ public:
 	void AddFov(float offset);
 	void RotateCamera(float yaw, float pitch);
 	void SetCameraSpeed(float spd);
+	glm::vec3 GetPosition() const;
+	glm::vec3 GetLookAt() const;
 	glm::mat4x4 GetProjectionMatrix() const;
 	glm::mat4x4 GetViewMatirx() const;
 private:
