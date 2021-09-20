@@ -3,9 +3,25 @@ a compute graphics learning &amp; coding center
 
 **纸上得来终觉浅，绝知此事要躬行。**
 
-这是一个使用opengl实现的渲染器，用来实践学到的图形学知识。当前该项目刚刚开工，只是有一些规划中要实现的东西，可能会根据时间以及未来的兴趣爱好改变实现内容，希望能够坚持下去（一个flag）
+这是一个使用opengl实现的渲染器，用来实践学到的图形学知识。当前该项目刚刚开工，只是有一些规划中要实现的东西，可能会根据时间以及未来的兴趣爱好改变 实现内容，希望能够坚持下去（一个flag）
+
+另外自己家2023年也要交付装修了，希望能在2023年前能实现一个简单的家装系统。
 
 目前规划中要实现的效果如下：
+
+
+
+下一步需要做的：
+
+添加沙发、床等初始家具
+
+添加面光源
+
+重构光源类
+
+添加阴影
+
+添加一个天空盒（shader和C++)
 
 ### 引擎基本功能：
 
@@ -24,12 +40,12 @@ a compute graphics learning &amp; coding center
   - [ ] 金属工作流 Metal Workflow
   - [ ] 毛玻璃 Frosted Glass
 - 光源
-  - [ ] 点光源 pointLight —— 计划8月21日前完成
-  - [ ] 面光源 AreaLight
-  - [ ] 直接光 DirectionalLight  ——计划9月21日前完成
+  - [x] 点光源 pointLight
+  - [ ] 面光源 AreaLight  —— **9月21日前完成**
+  - [x] 直接光 DirectionalLight
   - [ ] 聚光灯 SpotLight
 - 渲染管线
-  - [x] 正向渲染 forward rendering  ——计划8月15日前完成
+  - [x] 正向渲染 forward rendering
   - [ ] 延迟渲染 deferred rendering ——计划9月5日前完成
   - [ ] 延迟光照 deferred lighting、light pre-pass
   - [ ] 延迟贴图 deferred texture
@@ -37,7 +53,7 @@ a compute graphics learning &amp; coding center
 
 ### 阴影 Shadow 
 
-- [ ] CSM-hard  ——计划9月21日前完成
+- [ ] CSM-hard  ——**计划9月21日前完成**
 - [ ] shadow-bias ——计划10月2日前完成
 - [ ] PCSS ——计划10月6日前完成
 - [ ] VSM ——计划10月7日前完成
