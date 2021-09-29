@@ -224,7 +224,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 		if (!skip) {   // if texture hasn't been loaded already, load it
 			Texture texture;
 			//texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/Kitchen/Kitchen/");
-			texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/home_v002/");
+			texture.id = TextureFromFile(str.C_Str(), "F:/GitHub/CGCenter/3dmodels/home/");
 
 			texture.type = typeName;
 			texture.path = str.C_Str();   // ---> emtyp string
