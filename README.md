@@ -13,11 +13,7 @@ a compute graphics learning &amp; coding center
 
 下一步需要做的：
 
-添加沙发、床等初始家具
-
 添加面光源
-
-重构光源类
 
 添加阴影
 

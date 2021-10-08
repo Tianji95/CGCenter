@@ -12,7 +12,10 @@
 
 class Model {
 public:
-	Model() = default;
+	Model(std::shared_ptr<ShaderBase> prog) :mainProgram(prog)
+	{
+
+	}
 	~Model()
 	{
 		DeleteModel();
@@ -27,8 +30,7 @@ private:
 	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 	std::vector<std::shared_ptr<Mesh*>> meshes;
 	std::vector<Texture> textures_loaded;
-
-	std::shared_ptr<ShaderBase> testProgram;
+	std::string modelPath;
 	std::shared_ptr<ShaderBase> mainProgram;
 };
 

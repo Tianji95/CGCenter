@@ -36,7 +36,6 @@ struct Material {
 
 struct DirLight {
     vec3 direction;
-	
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -44,7 +43,6 @@ struct DirLight {
 
 struct PointLight {
     vec3 position;
-    
     float constant;
     float linear;
     float quadratic;
@@ -69,7 +67,7 @@ struct SpotLight {
     vec3 specular;       
 };
 
-#define NR_POINT_LIGHTS 4
+#define NR_POINT_LIGHTS 1
 uniform vec3 cameraPos;
 uniform DirLight dirLight;
 uniform PointLight pointLights[NR_POINT_LIGHTS];
@@ -108,7 +106,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     // attenuation
     float distance = length(light.position - fragPos);
-    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));    
+    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
     // combine results
     vec3 ambient = light.ambient * vec3(texture(texture_diffuse, fsuv));
     vec3 diffuse = light.diffuse * diff * vec3(texture(texture_diffuse, fsuv));
@@ -150,13 +148,13 @@ void main()
     vec3 norm = normalize(fsnormal);
     vec3 viewDir = normalize(cameraPos - fsWorldPos);
 
-    vec3 result = CalcDirLight(dirLight, norm, viewDir);
+    vec3 result = vec3(0.0f, 0.0f, 0.0f);//CalcDirLight(dirLight, norm, viewDir);
 
     for(int i = 0; i < NR_POINT_LIGHTS; i++){
         result += CalcPointLight(pointLights[i], norm, fsWorldPos, viewDir);    
     }
 
-    result += CalcSpotLight(spotLight, norm, fsWorldPos, viewDir);    
+    // result += CalcSpotLight(spotLight, norm, fsWorldPos, viewDir);    
     
     FragColor = vec4(result, 1.0);
 } 
