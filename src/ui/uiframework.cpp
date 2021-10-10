@@ -197,7 +197,14 @@ bool UIFramework::Draw()
         if (ImGui::SliderFloat("camera speed", &f, 0.1f, 100.0f)) {
             camera->SetCameraSpeed(f);
         }
-        ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+        ImGui::ColorEdit3("light Ambient color", (float*)&ambientColor);
+        ImGui::ColorEdit3("light diffuse color", (float*)&diffuseColor);
+        ImGui::ColorEdit3("light specular color", (float*)&specularColor);
+        ImGui::SliderFloat("light constant", &cons, 0.1f, 10.0f);
+        ImGui::SliderFloat("light linear", &lin, 0.0f, 0.0001f, "%.7f");
+        ImGui::SliderFloat("light quadratic", &quad, 0.0f, 0.000001f, "%.9f");
+        ImGui::SliderFloat("light cutOff", &cutOff, 30.0f, 150.0f);
+        ImGui::SliderFloat("light outerCutOff", &outerCutOff, 30.0f, 150.0f);
 
         if (ImGui::BeginCombo("##Draw Mode", render->renderModeList[render->rendermode])) {
             for (int n = 0; n < IM_ARRAYSIZE(render->renderModeList); n++) {
@@ -217,7 +224,7 @@ bool UIFramework::Draw()
     glfwGetFramebufferSize(window, &display_w, &display_h);
     glViewport(0, 0, display_w, display_h);
 
-    glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+    glClearColor(0.6f, 0.7f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     render->DrawScene();

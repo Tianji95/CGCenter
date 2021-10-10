@@ -67,11 +67,12 @@ struct SpotLight {
     vec3 specular;       
 };
 
-#define NR_POINT_LIGHTS 1
+#define NR_POINT_LIGHTS 13
+#define NR_SPOT_LIGHTS 13
 uniform vec3 cameraPos;
 uniform DirLight dirLight;
 uniform PointLight pointLights[NR_POINT_LIGHTS];
-uniform SpotLight spotLight;
+uniform SpotLight spotLight[NR_SPOT_LIGHTS];
 uniform Material material;
 
 out vec4 FragColor;
@@ -154,7 +155,9 @@ void main()
         result += CalcPointLight(pointLights[i], norm, fsWorldPos, viewDir);    
     }
 
-    // result += CalcSpotLight(spotLight, norm, fsWorldPos, viewDir);    
-    
+    for(int i = 0; i < NR_SPOT_LIGHTS; i++){
+        result += CalcSpotLight(spotLight[i], norm, fsWorldPos, viewDir);    
+    }
+
     FragColor = vec4(result, 1.0);
 } 

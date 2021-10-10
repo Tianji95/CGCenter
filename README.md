@@ -15,8 +15,6 @@ a compute graphics learning &amp; coding center
 
 添加面光源
 
-添加light cutting
-
 添加阴影
 
 ### 引擎基本功能：
@@ -29,6 +27,7 @@ a compute graphics learning &amp; coding center
   - [ ] 球体 Sphere ——计划8月29日前完成
   - [x] 平面 Plane
   - [x] 三角网格 TriMesh
+  - [x] 天空盒
 - 材质
   - [ ] 玻璃 Glass
   - [ ] 镜子 Mirror
@@ -37,12 +36,12 @@ a compute graphics learning &amp; coding center
   - [ ] 毛玻璃 Frosted Glass
 - 光源
   - [x] 点光源 pointLight
-  - [ ] 面光源 AreaLight  —— **9月21日前完成**
+  - [ ] 面光源 AreaLight
   - [x] 直接光 DirectionalLight
-  - [ ] 聚光灯 SpotLight
+  - [x] 聚光灯 SpotLight
 - 渲染管线
   - [x] 正向渲染 forward rendering
-  - [ ] 延迟渲染 deferred rendering ——计划9月5日前完成
+  - [ ] 延迟渲染 deferred rendering
   - [ ] 延迟光照 deferred lighting、light pre-pass
   - [ ] 延迟贴图 deferred texture
 - 拾取功能

@@ -36,6 +36,7 @@
     <ClCompile Include="src\runtime\render.cpp" />
     <ClCompile Include="src\runtime\scene.cpp" />
     <ClCompile Include="src\runtime\shaderBase.cpp" />
+    <ClCompile Include="src\runtime\spotlight.cpp" />
     <ClCompile Include="src\ui\uiframework.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +50,7 @@
     <ClInclude Include="src\runtime\PointLight.h" />
     <ClInclude Include="src\runtime\scene.h" />
     <ClInclude Include="src\runtime\shaderBase.h" />
+    <ClInclude Include="src\runtime\spotlight.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

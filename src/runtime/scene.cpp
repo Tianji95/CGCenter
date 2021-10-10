@@ -1,5 +1,6 @@
 #include "scene.h"
 #include "PointLight.h"
+#include "spotlight.h"
 void Scene::LoadScene()
 {
 	testProgram = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/test.vert", SRC_BASE_PATH + "src/shaders/test.frag");
@@ -41,14 +42,29 @@ void Scene::LoadScene()
 		glm::vec3(-2190.0f,  2955.0f, -1347.0f), // 走道1
 		glm::vec3(-2164.0f,  2955.0f, 536.0f), // 走道2
 	};
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < 13; i++) {
 		auto newPointLight = std::make_shared<PointLight>(pointLightPositions[i],
 			glm::vec3(0.05f, 0.05f, 0.05f),
 			glm::vec3(0.8f, 0.8f, 0.8f),
 			glm::vec3(1.0f, 1.0f, 1.0f),
 			1.0f,
-			0.00000009f,
-			0.000000032f,
+			0.000009f,
+			0.0000032f,
+			i,
+			mainProgram);
+		lights.push_back(newPointLight);
+	}
+	for (int i = 0; i < 13; i++) {
+		auto newPointLight = std::make_shared<SpotLight>(pointLightPositions[i],
+			glm::vec3(0.0f, -1.0f, -0.0f),
+			glm::vec3(0.05f, 0.05f, 0.05f),
+			glm::vec3(0.8f, 0.8f, 0.8f),
+			glm::vec3(1.0f, 1.0f, 1.0f),
+			100.0f,
+			115.0f,
+			1.0f,
+			0.000009f,
+			0.0000032f,
 			i,
 			mainProgram);
 		lights.push_back(newPointLight);

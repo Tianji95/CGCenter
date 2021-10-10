@@ -23,6 +23,14 @@ public:
 	bool Draw();
 	bool Destroy();
 	Camera* camera = nullptr;
+	ImVec4 ambientColor = ImVec4(0.05f, 0.05f, 0.05f, 1.00f);
+	ImVec4 diffuseColor = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
+	ImVec4 specularColor = ImVec4(0.0f, 0.0f, 0.0f, 1.00f);
+	float cons = 1.0f;
+	float lin = 0.0001f;
+	float quad = 0.00000075f;
+	float cutOff = 100.0f;
+	float outerCutOff = 115.0f;
 private:
 	UIFramework()
 	{
@@ -36,7 +44,6 @@ private:
 	GLFWwindow* window = nullptr;
 	bool show_demo_window = true;
 	bool show_another_window = false;
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 };
 
 #endif // !_UI_FRAME_WORK_H_
