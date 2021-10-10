@@ -9,9 +9,7 @@ class ShaderBase {
 public:
     ShaderBase(const std::string& vertexPath, const std::string& fragmentPath)
         : m_vertexPath(vertexPath), m_fragmentPath(fragmentPath){ }
-    ~ShaderBase()
-    {
-    }
+    ~ShaderBase();
 
     void ProduceProgram();
     void use();

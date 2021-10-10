@@ -2,6 +2,7 @@
 
 void PointLight::SetUniforms() const
 {
+	program->use();
 	program->setVec3("pointLights[" + std::to_string(lightIdx) + "].position", position);
 	program->setVec3("pointLights[" + std::to_string(lightIdx) + "].ambient", ambient);
 	program->setVec3("pointLights[" + std::to_string(lightIdx) + "].diffuse", diffuse);

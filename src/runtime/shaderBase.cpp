@@ -4,6 +4,10 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+ShaderBase::~ShaderBase()
+{
+    glDeleteProgram(programID);
+}
 void ShaderBase::ProduceProgram()
 {
     // 1. retrieve the vertex/fragment source code from filePath

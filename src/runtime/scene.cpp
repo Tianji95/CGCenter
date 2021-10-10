@@ -8,6 +8,19 @@ void Scene::LoadScene()
 	mainProgram = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/main.vert", SRC_BASE_PATH + "src/shaders/main.frag");
 	mainProgram->ProduceProgram();
 
+	skyBoxProgram = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/skybox.vert", SRC_BASE_PATH + "src/shaders/skybox.frag");
+	skyBoxProgram->ProduceProgram();
+	
+	cubemap = std::make_shared<CubeMap>(skyBoxProgram);
+	CubeMap::TextureDirectory directory;
+	directory.right = SRC_BASE_PATH + "3dmodels/skybox/right.jpg";
+	directory.left = SRC_BASE_PATH + "3dmodels/skybox/left.jpg";
+	directory.top = SRC_BASE_PATH + "3dmodels/skybox/top.jpg";
+	directory.bottom = SRC_BASE_PATH + "3dmodels/skybox/bottom.jpg";
+	directory.front = SRC_BASE_PATH + "3dmodels/skybox/front.jpg";
+	directory.back = SRC_BASE_PATH + "3dmodels/skybox/back.jpg";
+	cubemap->GenResources(directory);
+
 	auto newmodel = std::make_shared<Model>(mainProgram);
 	// newmodel->LoadModel(std::string("F:/GitHub/CGCenter/3dmodels/backpack/backpack.obj"));
 	newmodel->LoadModel(std::string(SRC_BASE_PATH + "3dmodels/home/home.obj"));
@@ -67,6 +80,7 @@ void Scene::Draw()
 	for (auto model : models) {
 		model->Draw();
 	}
+	cubemap->Draw();
 }
 
 void Scene::DeleteScene()

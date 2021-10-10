@@ -127,11 +127,9 @@ void Model::Draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-
+	mainProgram->use();
 	glm::mat4 modelMatrix = glm::mat4(1.0);
 	mainProgram->SetMVP(modelMatrix, UIFramework::Instance().camera->GetViewMatirx(), UIFramework::Instance().camera->GetProjectionMatrix());
-	mainProgram->use();
-
 	mainProgram->setVec3("viewPos", UIFramework::Instance().camera->GetPosition());
 	mainProgram->setFloat("material.shininess", 20.0f); 
 

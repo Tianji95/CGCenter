@@ -7,6 +7,7 @@
 #include "model.h"
 #include "light.h"
 #include "shaderBase.h"
+#include "cubemap.h"
 
 class Scene {
 public:
@@ -21,8 +22,10 @@ public:
 private:
 	std::vector<std::shared_ptr<Model>> models;
 	std::vector<std::shared_ptr<Light>> lights;
+	std::shared_ptr<CubeMap> cubemap;
 	std::shared_ptr<ShaderBase> testProgram;
 	std::shared_ptr<ShaderBase> mainProgram;
+	std::shared_ptr<ShaderBase> skyBoxProgram;
 	std::string SRC_BASE_PATH = "F:/GitHub/CGCenter/";
 };
 #endif // !SCENE_H

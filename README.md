@@ -15,9 +15,9 @@ a compute graphics learning &amp; coding center
 
 添加面光源
 
-添加阴影
+添加light cutting
 
-添加一个天空盒（shader和C++)
+添加阴影
 
 ### 引擎基本功能：
 

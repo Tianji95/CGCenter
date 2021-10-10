@@ -27,10 +27,12 @@
     <ClCompile Include="src\3rdpart\imgui\src\imgui_widgets.cpp" />
     <ClCompile Include="src\app\main.cpp" />
     <ClCompile Include="src\runtime\camera.cpp" />
+    <ClCompile Include="src\runtime\cubemap.cpp" />
     <ClCompile Include="src\runtime\directLight.cpp" />
     <ClCompile Include="src\runtime\light.cpp" />
     <ClCompile Include="src\runtime\mesh.cpp" />
     <ClCompile Include="src\runtime\model.cpp" />
+    <ClCompile Include="src\runtime\PointLight.cpp" />
     <ClCompile Include="src\runtime\render.cpp" />
     <ClCompile Include="src\runtime\scene.cpp" />
     <ClCompile Include="src\runtime\shaderBase.cpp" />
@@ -38,10 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\3rdpart\stb_image.h" />
+    <ClInclude Include="src\runtime\config.h" />
+    <ClInclude Include="src\runtime\cubemap.h" />
     <ClInclude Include="src\runtime\directLight.h" />
     <ClInclude Include="src\runtime\light.h" />
     <ClInclude Include="src\runtime\mesh.h" />
     <ClInclude Include="src\runtime\model.h" />
+    <ClInclude Include="src\runtime\PointLight.h" />
     <ClInclude Include="src\runtime\scene.h" />
     <ClInclude Include="src\runtime\shaderBase.h" />
   </ItemGroup>
