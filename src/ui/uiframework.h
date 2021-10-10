@@ -27,7 +27,7 @@ public:
 	ImVec4 diffuseColor = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
 	ImVec4 specularColor = ImVec4(0.0f, 0.0f, 0.0f, 1.00f);
 	float cons = 1.0f;
-	float lin = 0.0001f;
+	float lin = 0.001f;
 	float quad = 0.00000075f;
 	float cutOff = 100.0f;
 	float outerCutOff = 115.0f;

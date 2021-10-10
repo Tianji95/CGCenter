@@ -201,7 +201,7 @@ bool UIFramework::Draw()
         ImGui::ColorEdit3("light diffuse color", (float*)&diffuseColor);
         ImGui::ColorEdit3("light specular color", (float*)&specularColor);
         ImGui::SliderFloat("light constant", &cons, 0.1f, 10.0f);
-        ImGui::SliderFloat("light linear", &lin, 0.0f, 0.0001f, "%.7f");
+        ImGui::SliderFloat("light linear", &lin, 0.0f, 0.001f, "%.6f");
         ImGui::SliderFloat("light quadratic", &quad, 0.0f, 0.000001f, "%.9f");
         ImGui::SliderFloat("light cutOff", &cutOff, 30.0f, 150.0f);
         ImGui::SliderFloat("light outerCutOff", &outerCutOff, 30.0f, 150.0f);
