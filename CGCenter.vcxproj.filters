@@ -72,6 +72,12 @@
     <ClCompile Include="src\runtime\spotlight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\runtime\arealight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\runtime\trianglemesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\runtime\shaderBase.h">
@@ -105,6 +111,15 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\runtime\spotlight.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\runtime\arealight.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\runtime\trianglemesh.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\runtime\meshconstdata.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

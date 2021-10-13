@@ -39,14 +39,16 @@ struct Material {
 class Mesh {
 public:
 	Mesh() = default;
-	Mesh(std::vector<Vertex>& verts, std::vector<unsigned int>& inds, Material mat, const char* nm, std::shared_ptr<ShaderBase> prog) :vertices(verts), indices(inds), material(mat), name(nm), program(prog){
+	Mesh(std::vector<Vertex>& verts, std::vector<unsigned int>& inds, Material mat, const char* nm, std::shared_ptr<ShaderBase> prog) :
+		vertices(verts), indices(inds), material(mat), name(nm), program(prog){
 		LoadMesh();
 	}
 	~Mesh() = default;
-	void LoadMesh();
-	void Draw();
-	void DeleteMesh();
-private:
+	virtual void LoadMesh();
+	virtual void LoadMesh(std::vector<Vertex>& verts, std::vector<unsigned int>& inds, Material mat, const char* nm, std::shared_ptr<ShaderBase> prog);
+	virtual void Draw();
+	virtual void DeleteMesh();
+protected:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	const char* name;

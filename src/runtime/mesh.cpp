@@ -22,6 +22,17 @@ void Mesh::LoadMesh()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)* indices.size(), indices.data(), GL_STATIC_DRAW);
 
 }
+
+void Mesh::LoadMesh(std::vector<Vertex>& verts, std::vector<unsigned int>& inds, Material mat, const char* nm, std::shared_ptr<ShaderBase> prog)
+{
+    vertices = verts;
+    indices = inds;
+    material = mat;
+    name = nm;
+    program = prog;
+    LoadMesh();
+}
+
 void Mesh::Draw()
 {
     glBindVertexArray(VAO);
