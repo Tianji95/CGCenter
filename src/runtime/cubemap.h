@@ -16,7 +16,7 @@ public:
 		std::string front;
 		std::string back;
 	};
-	CubeMap(std::shared_ptr<ShaderBase> prog): program(prog){ }
+	CubeMap(){ }
 	~CubeMap(){ }
 	void Draw();
 	bool GenResources(const TextureDirectory& texDir);
@@ -24,13 +24,11 @@ public:
 protected:
 	bool GenVertices();
 	bool GenTextures(const TextureDirectory& texDir);
-
 	void DelResources();
 protected:
 	unsigned int VAO = 0;
 	unsigned int VBO = 0;
 	unsigned int textureID = 0;
-	std::shared_ptr<ShaderBase> program;
 };
 
 #endif // !CUBEMAP_H

@@ -12,10 +12,7 @@
 
 class Model {
 public:
-	Model(std::shared_ptr<ShaderBase> prog) :mainProgram(prog)
-	{
-
-	}
+	Model() { }
 	~Model()
 	{
 		DeleteModel();
@@ -31,7 +28,6 @@ private:
 	std::vector<std::shared_ptr<Mesh*>> meshes;
 	std::vector<Texture> textures_loaded;
 	std::string modelPath;
-	std::shared_ptr<ShaderBase> mainProgram;
 };
 
 #endif // !MODEL_H

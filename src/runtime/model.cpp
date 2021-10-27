@@ -7,6 +7,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "uiframework.h"
+#include "program.h"
 
 void Model::LoadModel(std::string& path)
 {
@@ -117,7 +118,9 @@ void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		material->Get(AI_MATKEY_SHADING_MODEL, mat.shadingModel);
 		material->Get(AI_MATKEY_BLEND_FUNC, mat.blendFunc);
 	}
-	meshes.push_back(std::make_shared<Mesh*>(new Mesh(vertices, indices, mat, mesh->mName.C_Str(), mainProgram)));
+	std::shared_ptr<ShaderBase> prog = Program::GetInstance().GetProgram(ProgramType::Main);
+
+	meshes.push_back(std::make_shared<Mesh*>(new Mesh(vertices, indices, mat, mesh->mName.C_Str(), prog)));
 	return;
 }
 
@@ -127,11 +130,12 @@ void Model::Draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	mainProgram->use();
+	std::shared_ptr<ShaderBase> prog = Program::GetInstance().GetProgram(ProgramType::Main);
+	prog->use();
 	glm::mat4 modelMatrix = glm::mat4(1.0);
-	mainProgram->SetMVP(modelMatrix, UIFramework::Instance().camera->GetViewMatirx(), UIFramework::Instance().camera->GetProjectionMatrix());
-	mainProgram->setVec3("viewPos", UIFramework::Instance().camera->GetPosition());
-	mainProgram->setFloat("material.shininess", 20.0f); 
+	prog->SetMVP(modelMatrix, UIFramework::Instance().camera->GetViewMatirx(), UIFramework::Instance().camera->GetProjectionMatrix());
+	prog->setVec3("viewPos", UIFramework::Instance().camera->GetPosition());
+	prog->setFloat("material.shininess", 20.0f);
 
 	for (auto mesh : meshes) {
 		(*mesh)->Draw();

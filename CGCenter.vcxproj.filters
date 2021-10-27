@@ -78,6 +78,9 @@
     <ClCompile Include="src\runtime\trianglemesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\runtime\program.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\runtime\shaderBase.h">
@@ -120,6 +123,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\runtime\meshconstdata.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\runtime\program.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

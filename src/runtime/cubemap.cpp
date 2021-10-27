@@ -4,6 +4,8 @@
 #include "stb_image.h"
 #include "uiframework.h"
 #include "meshconstdata.h"
+#include "program.h"
+
 bool CubeMap::GenResources(const TextureDirectory& texDir)
 {
 	GenVertices();
@@ -60,6 +62,7 @@ void CubeMap::Draw()
 {
     //glDisable(GL_CULL_FACE);
     glDepthFunc(GL_LEQUAL);
+    std::shared_ptr<ShaderBase> program = Program::GetInstance().GetProgram(ProgramType::SkyBox);
     program->use();
     glm::mat4 modelMatrix = glm::mat4(1.0f);
     program->SetMVP(modelMatrix, glm::mat4(glm::mat3(UIFramework::Instance().camera->GetViewMatirx())), UIFramework::Instance().camera->GetProjectionMatrix());
