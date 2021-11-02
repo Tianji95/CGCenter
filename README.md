@@ -13,9 +13,9 @@ a compute graphics learning &amp; coding center
 
 下一步需要做的：
 
-添加面光源
-
 添加阴影
+
+光线追踪和GI
 
 ### 引擎基本功能：
 
@@ -24,19 +24,15 @@ a compute graphics learning &amp; coding center
 - 摄像机
   - [x] 可漫游摄像机
 - 几何体
-  - [ ] 球体 Sphere ——计划8月29日前完成
   - [x] 平面 Plane
   - [x] 三角网格 TriMesh
   - [x] 天空盒
 - 材质
-  - [ ] 玻璃 Glass
   - [ ] 镜子 Mirror
   - [x] 漫反射 Diffuse
-  - [ ] 金属工作流 Metal Workflow
-  - [ ] 毛玻璃 Frosted Glass
 - 光源
   - [x] 点光源 pointLight
-  - [ ] 面光源 AreaLight
+  - [x] 面光源 AreaLight
   - [x] 直接光 DirectionalLight
   - [x] 聚光灯 SpotLight
 - 渲染管线
@@ -48,10 +44,10 @@ a compute graphics learning &amp; coding center
 
 ### 阴影 Shadow 
 
-- [ ] CSM-hard  ——**计划9月21日前完成**
-- [ ] shadow-bias ——计划10月2日前完成
-- [ ] PCSS ——计划10月6日前完成
-- [ ] VSM ——计划10月7日前完成
+- [ ] CSM-hard  ——**计划11月7日前完成**
+- [ ] shadow-bias ——计划11月14日前完成
+- [ ] PCSS ——计划11月21日前完成
+- [ ] VSM ——计划11月28日前完成
 
 ### 全局光照 GI
 
