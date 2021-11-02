@@ -2,7 +2,6 @@
 #ifndef AREA_LIGHT_H
 #define AREA_LIGHT_H
 #include "light.h"
-#include "trianglemesh.h"
 
 class AreaLight : public Light {
 public:
@@ -21,7 +20,6 @@ private:
     float linear;
     float quadratic;
     int lightIdx = 0;
-    TriangleMesh mesh; 
 };
 
 #endif // !AREA_LIGHT_H

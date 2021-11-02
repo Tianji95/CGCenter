@@ -8,7 +8,8 @@
 #include "light.h"
 #include "shaderBase.h"
 #include "cubemap.h"
-#include "trianglemesh.h"
+#include "planemesh.h"
+
 
 class Scene {
 public:
@@ -23,7 +24,7 @@ public:
 private:
 	std::vector<std::shared_ptr<Model>> models;
 	std::vector<std::shared_ptr<Light>> lights;
-	std::vector<std::shared_ptr<TriangleMesh>> triMeshes;
+	std::vector<std::shared_ptr<PlaneMesh>> rectMeshes;
 
 	std::shared_ptr<CubeMap> cubemap;
 	std::shared_ptr<ShaderBase> testProgram;

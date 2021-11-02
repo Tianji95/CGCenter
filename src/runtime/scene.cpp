@@ -4,7 +4,8 @@
 #include "arealight.h"
 #include "config.h"
 #include "program.h"
-
+#include "trianglemesh.h"
+#include "rectanglemesh.h"
 void Scene::LoadScene()
 {
 	cubemap = std::make_shared<CubeMap>();
@@ -78,11 +79,11 @@ void Scene::LoadScene()
 			mainProgram);
 		lights.push_back(newAreaLight);
 
-		auto mesh = std::make_shared<TriangleMesh>();
+		auto mesh = std::make_shared<RectangleMesh>();
 		mesh->LoadMesh();
 		mesh->SetCenter(pointLightPositions[i]);
 		mesh->SetScaler(glm::vec3(100.0f, 100.0f, 100.0f));
-		triMeshes.push_back(mesh);
+		rectMeshes.push_back(mesh);
 	}
 	
 
@@ -103,7 +104,7 @@ void Scene::Draw()
 	}
 	std::shared_ptr<ShaderBase> prog = Program::GetInstance().GetProgram(ProgramType::SimpleColored);
 	prog->use();
-	for (auto mesh : triMeshes) {
+	for (auto mesh : rectMeshes) {
 		mesh->Draw();
 	}
 	cubemap->Draw();

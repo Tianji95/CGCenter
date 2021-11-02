@@ -33,8 +33,10 @@
     <ClCompile Include="src\runtime\light.cpp" />
     <ClCompile Include="src\runtime\mesh.cpp" />
     <ClCompile Include="src\runtime\model.cpp" />
+    <ClCompile Include="src\runtime\planemesh.cpp" />
     <ClCompile Include="src\runtime\PointLight.cpp" />
     <ClCompile Include="src\runtime\program.cpp" />
+    <ClCompile Include="src\runtime\rectanglemesh.cpp" />
     <ClCompile Include="src\runtime\render.cpp" />
     <ClCompile Include="src\runtime\scene.cpp" />
     <ClCompile Include="src\runtime\shaderBase.cpp" />
@@ -52,8 +54,10 @@
     <ClInclude Include="src\runtime\mesh.h" />
     <ClInclude Include="src\runtime\meshconstdata.h" />
     <ClInclude Include="src\runtime\model.h" />
+    <ClInclude Include="src\runtime\planemesh.h" />
     <ClInclude Include="src\runtime\PointLight.h" />
     <ClInclude Include="src\runtime\program.h" />
+    <ClInclude Include="src\runtime\rectanglemesh.h" />
     <ClInclude Include="src\runtime\scene.h" />
     <ClInclude Include="src\runtime\shaderBase.h" />
     <ClInclude Include="src\runtime\spotlight.h" />

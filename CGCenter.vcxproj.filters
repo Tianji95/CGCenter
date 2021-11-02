@@ -81,6 +81,12 @@
     <ClCompile Include="src\runtime\program.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\runtime\rectanglemesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\runtime\planemesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\runtime\shaderBase.h">
@@ -126,6 +132,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\runtime\program.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\runtime\rectanglemesh.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\runtime\planemesh.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
