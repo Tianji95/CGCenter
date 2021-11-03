@@ -9,11 +9,15 @@ a compute graphics learning &amp; coding center
 
 目前规划中要实现的效果如下：
 
+cd build
 
+cmake .. -G "Visual Studio 15 2017 Win64"
 
 下一步需要做的：
 
 添加阴影
+
+CMAKE和lib中的mt和md要匹配起来，
 
 光线追踪和GI
 
