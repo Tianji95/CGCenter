@@ -11,7 +11,9 @@ a compute graphics learning &amp; coding center
 
 cd build
 
-cmake .. -G "Visual Studio 15 2017 Win64"
+cmake .. -G "Visual Studio 16 2019" -A x64
+
+记录几个小bug，assimp-vc142-mt.dll、glew32.dll和glfw3.dll是我自己编译的dll，容易和windows自带的dll冲突，所以需要单独把它们拷贝到可执行文件下面
 
 下一步需要做的：
 
