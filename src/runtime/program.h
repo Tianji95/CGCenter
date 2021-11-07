@@ -11,6 +11,7 @@ enum class ProgramType {
 	Main = 1,
 	SkyBox = 2,
 	SimpleColored = 3,
+	SimpleDepthMapGenerate = 4,
 };
 
 class Program {
@@ -40,6 +41,9 @@ private:
 
 		mp[ProgramType::SimpleColored] = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/simple_colored_mesh.vert", SRC_BASE_PATH + "src/shaders/simple_colored_mesh.frag");
 		mp[ProgramType::SimpleColored]->ProduceProgram();
+
+		mp[ProgramType::SimpleDepthMapGenerate] = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/simple_depth_map_generate.vert", SRC_BASE_PATH + "src/shaders/simple_depth_map_generate.frag");
+		mp[ProgramType::SimpleDepthMapGenerate]->ProduceProgram();
 	}
 	~Program() {	 }
 	Program(const Program&);

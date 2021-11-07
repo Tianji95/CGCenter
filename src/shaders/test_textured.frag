@@ -6,6 +6,5 @@ in vec2 fsuv;
 
 void main()
 {
-    // FragColor = vec4(fsuv,0.0f, 1.0f);
     FragColor = texture2D(texUnit, fsuv);
 } 

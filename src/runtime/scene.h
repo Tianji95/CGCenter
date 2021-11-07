@@ -6,11 +6,10 @@
 #include <memory>
 #include "model.h"
 #include "light.h"
-#include "shaderBase.h"
 #include "cubemap.h"
 #include "planemesh.h"
-
-
+#include "depthpass.h"
+#include "forward_main_pass.h"
 class Scene {
 public:
 	Scene() = default;
@@ -27,9 +26,7 @@ private:
 	std::vector<std::shared_ptr<PlaneMesh>> rectMeshes;
 
 	std::shared_ptr<CubeMap> cubemap;
-	std::shared_ptr<ShaderBase> testProgram;
-	std::shared_ptr<ShaderBase> mainProgram;
-	std::shared_ptr<ShaderBase> simpleColoredMeshProgram;
-	std::shared_ptr<ShaderBase> skyBoxProgram;
+	std::shared_ptr<DepthPass> depthPass;
+	std::shared_ptr<ForwardMainPass> forwardMainPass;
 };
 #endif // !SCENE_H

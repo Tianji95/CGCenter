@@ -6,6 +6,9 @@
 #include "program.h"
 #include "trianglemesh.h"
 #include "rectanglemesh.h"
+#include "shaderBase.h"
+#include "depthpass.h"
+
 void Scene::LoadScene()
 {
 	cubemap = std::make_shared<CubeMap>();
@@ -23,6 +26,12 @@ void Scene::LoadScene()
 	// newmodel->LoadModel(std::string("F:/GitHub/CGCenter/3dmodels/backpack/backpack.obj"));
 	newmodel->LoadModel(std::string(SRC_BASE_PATH + "3dmodels/home/home.obj"));
 	models.push_back(newmodel);
+
+	depthPass = std::make_shared<DepthPass>();
+	depthPass->GenResources();
+
+	forwardMainPass = std::make_shared<ForwardMainPass>();
+	forwardMainPass->GenResources();
 
 	glm::vec3 pointLightPositions[] = {
 		glm::vec3(4708.0f, 2844.0f, 2200.0f), // Êé·¿
@@ -86,7 +95,6 @@ void Scene::LoadScene()
 		rectMeshes.push_back(mesh);
 	}
 	
-
 	// directional light
 	//mainProgram->setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
 	//mainProgram->setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
@@ -96,6 +104,8 @@ void Scene::LoadScene()
 
 void Scene::Draw()
 {
+	//depthPass->Render();
+	//forwardMainPass->Render();
 	for (auto light : lights) {
 		light->SetUniforms();
 	}
