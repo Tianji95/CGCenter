@@ -53,9 +53,6 @@ glm::mat4x4 Camera::GetProjectionMatrix() const
 void Camera::UpdateViewMatrix()
 {
 	viewMatrix = glm::lookAt(eye, lookat, up);
-	std::cout << " eye.x:" << eye.x << " eye.y " << eye.y << " eye.z " << eye.z << std::endl;
-	std::cout << " lookat.x:" << lookat.x << " lookat.y " << lookat.y << " lookat.z " << lookat.z << std::endl;
-	std::cout << " up.x:" << up.x << " up.y " << up.y << " up.z " << up.z << std::endl;
 }
 
 void Camera::RotateCamera(float deltayaw, float deltapitch)
@@ -85,8 +82,6 @@ void Camera::RotateCamera(float deltayaw, float deltapitch)
 	else {
 		up = glm::vec3(0, -1, 0);
 	}
-	std::cout << "pitch : " << pitch << std::endl;
-	std::cout << "yaw : " << yaw << std::endl;
 	UpdateViewMatrix();
 }
 

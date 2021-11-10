@@ -222,6 +222,7 @@ bool UIFramework::Draw()
     }
     int display_w, display_h;
     glfwGetFramebufferSize(window, &display_w, &display_h);
+    render->UpdateWindowSize(display_w, display_h);
     glViewport(0, 0, display_w, display_h);
 
     glClearColor(0.6f, 0.7f, 0.3f, 1.0f);

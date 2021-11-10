@@ -18,7 +18,7 @@ public:
 		DeleteModel();
 	}
 	void LoadModel(std::string& path);
-	void Draw();
+	void Draw(std::shared_ptr<ShaderBase> prog);
 	void DeleteModel();
 private:
 	void ProcessNode(aiNode* node, const aiScene* scene);

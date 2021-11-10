@@ -9,17 +9,9 @@ a compute graphics learning &amp; coding center
 
 目前规划中要实现的效果如下：
 
-cd build
-
-cmake .. -G "Visual Studio 16 2019" -A x64
-
-记录几个小bug，assimp-vc142-mt.dll、glew32.dll和glfw3.dll是我自己编译的dll，容易和windows自带的dll冲突，所以需要单独把它们拷贝到可执行文件下面
-
 下一步需要做的：
 
 添加阴影
-
-CMAKE和lib中的mt和md要匹配起来，
 
 光线追踪和GI
 
@@ -97,4 +89,10 @@ CMAKE和lib中的mt和md要匹配起来，
 
 
 ### 遮挡剔除
+
+
+
+
+
+
 

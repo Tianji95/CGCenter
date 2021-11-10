@@ -1,4 +1,5 @@
 #include "depthpass.h"
+#include "glm/gtc/type_ptr.hpp"
 #include "program.h"
 
 bool DepthPass::GenResources()
@@ -18,13 +19,10 @@ bool DepthPass::GenResources()
 	return true;
 }
 
-void DepthPass::Render() const
+void DepthPass::Render(std::shared_ptr<ShaderBase> program) const
 {
-	std::shared_ptr<ShaderBase> program = Program::GetInstance().GetProgram(ProgramType::SimpleDepthMapGenerate);
-	program->use();
 	glViewport(0, 0, width, height);
 	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 	glClear(GL_DEPTH_BUFFER_BIT);
-	// glUniformMatrix4fv(glGetUniformLocation(program->GetID(), "LightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
-	 
+	glUniformMatrix4fv(glGetUniformLocation(program->GetID(), "LightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix)); 
 }

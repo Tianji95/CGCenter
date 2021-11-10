@@ -17,7 +17,7 @@ public:
 	void GenResources();
 	void DrawScene() const;
 	void DeleteResources();
-
+	void UpdateWindowSize(int display_w, int display_h);
 	int rendermode = 2;// default is fill mode
 	const char* renderModeList[3] = { "Point", "Line", "Fill" };
 private:

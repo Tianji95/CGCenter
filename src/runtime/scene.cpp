@@ -27,7 +27,7 @@ void Scene::LoadScene()
 	newmodel->LoadModel(std::string(SRC_BASE_PATH + "3dmodels/home/home.obj"));
 	models.push_back(newmodel);
 
-	depthPass = std::make_shared<DepthPass>();
+	depthPass = std::make_shared<DepthPass>(glm::vec3(-3914.0f, 2838.0f, 2814.0f),	glm::vec3(-3700.0f, 2830.0f, 2700.0f), glm::vec3(1.0f));
 	depthPass->GenResources();
 
 	forwardMainPass = std::make_shared<ForwardMainPass>();
@@ -104,20 +104,39 @@ void Scene::LoadScene()
 
 void Scene::Draw()
 {
-	//depthPass->Render();
+	std::shared_ptr<ShaderBase> prog = Program::GetInstance().GetProgram(ProgramType::SimpleDepthMapGenerate);
+	prog->use();
+	depthPass->Render(prog);
+	for (auto model : models) {
+		model->Draw(prog);
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, windowWidth, windowHeight);
+	glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	//forwardMainPass->Render();
 	for (auto light : lights) {
 		light->SetUniforms();
 	}
-	for (auto model : models) {
-		model->Draw();
+	prog = Program::GetInstance().GetProgram(ProgramType::Main);
+	prog->use();
+	for (auto model : models) { 
+		model->Draw(prog);
 	}
-	std::shared_ptr<ShaderBase> prog = Program::GetInstance().GetProgram(ProgramType::SimpleColored);
+	prog = Program::GetInstance().GetProgram(ProgramType::SimpleColored);
 	prog->use();
 	for (auto mesh : rectMeshes) {
 		mesh->Draw();
 	}
 	cubemap->Draw();
+}
+
+void Scene::UpdateWindowSize(int display_w, int display_h)
+{
+	windowWidth = display_w;
+	windowHeight = display_h;
 }
 
 void Scene::DeleteScene()

@@ -124,14 +124,8 @@ void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	return;
 }
 
-void Model::Draw()
+void Model::Draw(std::shared_ptr<ShaderBase> prog)
 {
-	glEnable(GL_DEPTH_TEST);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	std::shared_ptr<ShaderBase> prog = Program::GetInstance().GetProgram(ProgramType::Main);
-	prog->use();
 	glm::mat4 modelMatrix = glm::mat4(1.0);
 	prog->SetMVP(modelMatrix, UIFramework::Instance().camera->GetViewMatirx(), UIFramework::Instance().camera->GetProjectionMatrix());
 	prog->setVec3("viewPos", UIFramework::Instance().camera->GetPosition());

@@ -19,3 +19,10 @@ void Render::DeleteResources()
 {
     delete scene;
 }
+
+void Render::UpdateWindowSize(int display_w, int display_h)
+{
+    if (scene) {
+        scene->UpdateWindowSize(display_w, display_h);
+    }
+}
