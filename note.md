@@ -12,6 +12,7 @@ cmake .. -G "Visual Studio 16 2019" -A x64
 
 怎么组织drawmesh的代码（例如想要绘制阴影时候的prog和正常绘制的program不同）
 
-怎么组织各种不同的light和shader之间的关系
+怎么组织各种不同的light和shader之间的关系，特别是不同的shader，想要切换不同的效果，怎么才能优雅的切换。
 
 怎么把UI的参数透传下来，怎么去设计一个合理的UI类
+

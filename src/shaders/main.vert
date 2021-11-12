@@ -5,9 +5,11 @@ layout (location = 2) in vec2 uv;
 uniform mat4 Model;
 uniform mat4 CameraView;
 uniform mat4 CameraProjection;
+uniform mat4 LightSpaceMatrix;
 out vec3 fsnormal;
 out vec2 fsuv;
 out vec3 fsWorldPos;
+out vec4 FragPosLightSpace;
 
 void main()
 {
@@ -15,4 +17,5 @@ void main()
     fsnormal = normal;
     fsuv = uv;
     fsWorldPos = vec3(Model * vec4(aPos, 1.0));
+    FragPosLightSpace = LightSpaceMatrix * vec4(fsWorldPos, 1.0f);
 }

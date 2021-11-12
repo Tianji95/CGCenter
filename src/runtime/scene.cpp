@@ -27,7 +27,7 @@ void Scene::LoadScene()
 	newmodel->LoadModel(std::string(SRC_BASE_PATH + "3dmodels/home/home.obj"));
 	models.push_back(newmodel);
 
-	depthPass = std::make_shared<DepthPass>(glm::vec3(-3914.0f, 2838.0f, 2814.0f),	glm::vec3(-3700.0f, 2830.0f, 2700.0f), glm::vec3(1.0f));
+	depthPass = std::make_shared<DepthPass>(glm::vec3(4708.0f, 2842.0f, 2200.0f),	glm::vec3(4708.0f, 2840.0f, 2200.0f), glm::vec3(1.0f));
 	depthPass->GenResources();
 
 	forwardMainPass = std::make_shared<ForwardMainPass>();
@@ -122,6 +122,8 @@ void Scene::Draw()
 	}
 	prog = Program::GetInstance().GetProgram(ProgramType::Main);
 	prog->use();
+	depthPass->SetLightSpaceMatrixUniform(prog);
+	depthPass->UseShadowMap(prog);
 	for (auto model : models) { 
 		model->Draw(prog);
 	}

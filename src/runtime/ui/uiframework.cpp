@@ -140,7 +140,7 @@ bool UIFramework::Init()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
     // Create window with graphics context
-    window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+OpenGL3 example", NULL, NULL);
+    window = glfwCreateWindow(1280, 720, "CGCenter", NULL, NULL);
     if (window == NULL)
         return false;
     glfwMakeContextCurrent(window);
@@ -191,7 +191,7 @@ bool UIFramework::Draw()
     ImGui::NewFrame();
 
     {
-        static float f = 0;
+        static float f = 50.0f;
         ImGui::Begin("Hello, world!"); 
         
         if (ImGui::SliderFloat("camera speed", &f, 0.1f, 100.0f)) {

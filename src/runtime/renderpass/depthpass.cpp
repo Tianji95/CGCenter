@@ -19,10 +19,23 @@ bool DepthPass::GenResources()
 	return true;
 }
 
+void DepthPass::SetLightSpaceMatrixUniform(std::shared_ptr<ShaderBase> program) const
+{
+	glUniformMatrix4fv(glGetUniformLocation(program->GetID(), "LightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+}
+
+void DepthPass::UseShadowMap(std::shared_ptr<ShaderBase> program)
+{
+	auto textureID = glGetUniformLocation(program->GetID(), "shadow_map");
+	glActiveTexture(GL_TEXTURE0+18);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glUniform1i(textureID, 18);
+}
+
 void DepthPass::Render(std::shared_ptr<ShaderBase> program) const
 {
 	glViewport(0, 0, width, height);
 	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 	glClear(GL_DEPTH_BUFFER_BIT);
-	glUniformMatrix4fv(glGetUniformLocation(program->GetID(), "LightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix)); 
+	SetLightSpaceMatrixUniform(program);
 }

@@ -9,9 +9,11 @@ a compute graphics learning &amp; coding center
 
 目前规划中要实现的效果如下：
 
+
+
 下一步需要做的：
 
-添加阴影
+重构代码，把shader组织起来
 
 光线追踪和GI
 
@@ -42,6 +44,7 @@ a compute graphics learning &amp; coding center
 
 ### 阴影 Shadow 
 
+- [x] shadow map 
 - [ ] CSM-hard  ——**计划11月7日前完成**
 - [ ] shadow-bias ——计划11月14日前完成
 - [ ] PCSS ——计划11月21日前完成
@@ -94,5 +97,7 @@ a compute graphics learning &amp; coding center
 
 
 
+暂时的效果：
 
+![1](./example_image/1.png)
 

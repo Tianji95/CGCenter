@@ -37,7 +37,7 @@ private:
 	glm::vec3 up{0,1,0};
 	glm::mat4x4 viewMatrix;
 	glm::mat4x4 projectionMatrix;
-	float speed = 1.0f;
+	float speed = 50.0f;
 	float fov = 90;
 	float yaw = -90;
 	float pitch = 0;
