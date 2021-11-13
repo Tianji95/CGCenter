@@ -46,7 +46,8 @@ a compute graphics learning &amp; coding center
 
 - [x] shadow map 
 - [ ] CSM-hard  ——**计划11月7日前完成**
-- [ ] shadow-bias ——计划11月14日前完成
+- [x] shadow-bias
+- [x] PCF
 - [ ] PCSS ——计划11月21日前完成
 - [ ] VSM ——计划11月28日前完成
 

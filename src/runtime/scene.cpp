@@ -42,11 +42,11 @@ void Scene::LoadScene()
 		glm::vec3(1230.0f, 2962.0f, -3784.0f), // 阳台
 		glm::vec3(-3914.0f, 2838.0f, 2814.0f), // 主卧
 		glm::vec3(-842.0f, 2829.0f, 2686.0f), // 主卫
-		glm::vec3(-4226.0f, 2900.0f, -164.0f), // 中卧
-		glm::vec3(-3760.0f,  2955.0f, -3240.0f), // 次卧
-		glm::vec3(-5800.0f,  2955.0f, -3130.0f), // 次卧阳台
-		glm::vec3(-2190.0f,  2955.0f, -1347.0f), // 走道1
-		glm::vec3(-2164.0f,  2955.0f, 536.0f), // 走道2
+		glm::vec3(-4226.0f, 2850.0f, -164.0f), // 中卧
+		glm::vec3(-3760.0f,  2855.0f, -3240.0f), // 次卧
+		glm::vec3(-5800.0f,  2855.0f, -3130.0f), // 次卧阳台
+		glm::vec3(-2190.0f,  2855.0f, -1347.0f), // 走道1
+		glm::vec3(-2164.0f,  2855.0f, 536.0f), // 走道2
 	};
 	for (int i = 0; i < 13; i++) {
 		auto newPointLight = std::make_shared<PointLight>(pointLightPositions[i],
