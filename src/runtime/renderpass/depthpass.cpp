@@ -22,6 +22,8 @@ bool DepthPass::GenResources()
 void DepthPass::SetLightSpaceMatrixUniform(std::shared_ptr<ShaderBase> program) const
 {
 	glUniformMatrix4fv(glGetUniformLocation(program->GetID(), "LightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+	GLuint shadowLightPosID = glGetUniformLocation(program->GetID(), "shadow_light_pos");
+	glUniform3fv(shadowLightPosID, 1, &pos[0]);
 }
 
 void DepthPass::UseShadowMap(std::shared_ptr<ShaderBase> program)

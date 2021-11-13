@@ -10,12 +10,14 @@
 #include "shaderBase.h"
 class DepthPass : public RenderPass{
 public:
-	DepthPass(glm::vec3 eye, glm::vec3 lootat, glm::vec3 up)
+	DepthPass(glm::vec3 eye, glm::vec3 look, glm::vec3 up)
 	{
 		GLfloat near_plane = 0.1f, far_plane = 10000.0f;
-		glm::mat4 lightProjection = glm::ortho(-1000.0f, 1000.0f, -1000.0f, 1000.0f, near_plane, far_plane);
-		glm::mat4 lightView = glm::lookAt(eye, lootat, up);
+		glm::mat4 lightProjection = glm::ortho(-2000.0f, 2000.0f, -2000.0f, 2000.0f, near_plane, far_plane);
+		glm::mat4 lightView = glm::lookAt(eye, look, up);
 		lightSpaceMatrix = lightProjection * lightView;
+		pos = eye;
+		lookat = look;
 	}
 	virtual ~DepthPass() = default;
 	virtual bool GenResources() override;
@@ -28,6 +30,8 @@ private:
 	GLint width = 1024;
 	GLint height = 1024;
 	GLuint texture = 0;
+	glm::vec3 pos;
+	glm::vec3 lookat;
 	glm::mat4 lightSpaceMatrix;
 };
 

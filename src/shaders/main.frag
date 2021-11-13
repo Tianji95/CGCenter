@@ -144,19 +144,20 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     return (ambient + diffuse + specular);
 }
 
-float CalculateShadow(vec4 fragPosLightSpace)
+float CalculateShadow(vec4 fragPosLightSpace, vec3 norm)
 {
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5;
-    if (fragPosLightSpace.x < 0 || fragPosLightSpace.x > 1) {
+    if (projCoords.x < 0 || projCoords.x > 1) {
         return 0.0;
     }
-    if (fragPosLightSpace.y < 0 || fragPosLightSpace.y > 1) {
+    if (projCoords.y < 0 || projCoords.y > 1) {
         return 0.0;
     }
     float closestDepth = texture(shadow_map, projCoords.xy).r;
     float currentDepth = projCoords.z;
-    float shadowBias = 0.000005;
+    vec3 lightDir = normalize(shadow_light_pos - fsWorldPos);
+    float shadowBias = max(0.05 * (1.0 - dot(norm, lightDir)), 0.005);
     float shadow = currentDepth - shadowBias > closestDepth  ? 1.0 : 0.0;
     return shadow;
 }
@@ -168,7 +169,7 @@ void main()
 
     vec3 result = vec3(0.0f, 0.0f, 0.0f);//CalcDirLight(dirLight, norm, viewDir);
 
-    float shadow = CalculateShadow(FragPosLightSpace);
+    float shadow = CalculateShadow(FragPosLightSpace, norm);
 
     for(int i = 0; i < NR_POINT_LIGHTS; i++){
         result += CalcPointLight(pointLights[i], norm, fsWorldPos, viewDir) * (1 - shadow);    

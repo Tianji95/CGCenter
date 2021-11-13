@@ -122,6 +122,7 @@ void Scene::Draw()
 	}
 	prog = Program::GetInstance().GetProgram(ProgramType::Main);
 	prog->use();
+	
 	depthPass->SetLightSpaceMatrixUniform(prog);
 	depthPass->UseShadowMap(prog);
 	for (auto model : models) { 
