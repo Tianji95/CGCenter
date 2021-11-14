@@ -192,7 +192,9 @@ bool UIFramework::Draw()
 
     {
         static float f = 50.0f;
-        ImGui::Begin("options"); 
+        static bool open = true;
+        ImGui::SetNextWindowSize(ImVec2(400, 600));
+        ImGui::Begin("options");
         
         if (ImGui::SliderFloat("camera speed", &f, 0.1f, 100.0f)) {
             camera->SetCameraSpeed(f);
