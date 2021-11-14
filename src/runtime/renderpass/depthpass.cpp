@@ -21,11 +21,17 @@ bool DepthPass::GenResources()
 	return true;
 }
 
-void DepthPass::SetLightSpaceMatrixUniform(std::shared_ptr<ShaderBase> program) const
+void DepthPass::SetLightSpaceMatrixUniform(std::shared_ptr<ShaderBase> program, int shadowType, int shadowLightSize) const
 {
 	glUniformMatrix4fv(glGetUniformLocation(program->GetID(), "LightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
 	GLuint shadowLightPosID = glGetUniformLocation(program->GetID(), "shadow_light_pos");
 	glUniform3fv(shadowLightPosID, 1, &pos[0]);
+
+	GLuint shadowTypeID = glGetUniformLocation(program->GetID(), "shadow_type");
+	glUniform1i(shadowTypeID, shadowType);
+
+	GLuint shadowLightSizeID = glGetUniformLocation(program->GetID(), "shadow_light_size");
+	glUniform1i(shadowLightSizeID, shadowLightSize);
 }
 
 void DepthPass::UseShadowMap(std::shared_ptr<ShaderBase> program)
@@ -41,5 +47,5 @@ void DepthPass::Render(std::shared_ptr<ShaderBase> program) const
 	glViewport(0, 0, width, height);
 	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 	glClear(GL_DEPTH_BUFFER_BIT);
-	SetLightSpaceMatrixUniform(program);
+	SetLightSpaceMatrixUniform(program, 2, 2);
 }

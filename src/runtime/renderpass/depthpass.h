@@ -21,7 +21,7 @@ public:
 	}
 	virtual ~DepthPass() = default;
 	virtual bool GenResources() override;
-	void SetLightSpaceMatrixUniform(std::shared_ptr<ShaderBase> program) const;
+	void SetLightSpaceMatrixUniform(std::shared_ptr<ShaderBase> program, int shadowType, int shadowLightSize) const;
 	void UseShadowMap(std::shared_ptr<ShaderBase> program);
 	virtual void Render(std::shared_ptr<ShaderBase> program) const;
 protected:

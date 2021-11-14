@@ -102,7 +102,7 @@ void Scene::LoadScene()
 	//mainProgram->setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
 }
 
-void Scene::Draw()
+void Scene::Draw(int shadowType, int shadowLightSize)
 {
 	std::shared_ptr<ShaderBase> prog = Program::GetInstance().GetProgram(ProgramType::SimpleDepthMapGenerate);
 	prog->use();
@@ -123,7 +123,7 @@ void Scene::Draw()
 	prog = Program::GetInstance().GetProgram(ProgramType::Main);
 	prog->use();
 	
-	depthPass->SetLightSpaceMatrixUniform(prog);
+	depthPass->SetLightSpaceMatrixUniform(prog, shadowType, shadowLightSize);
 	depthPass->UseShadowMap(prog);
 	for (auto model : models) { 
 		model->Draw(prog);

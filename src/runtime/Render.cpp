@@ -12,7 +12,7 @@ void Render::GenResources()
 void Render::DrawScene() const
 {
     glPolygonMode(GL_FRONT_AND_BACK, RENDER_MODE_MAP.at(rendermode));
-    scene->Draw();
+    scene->Draw(shadowType, shadowLightSize);
 }
 
 void Render::DeleteResources()

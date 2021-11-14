@@ -19,13 +19,17 @@ public:
 	void DeleteResources();
 	void UpdateWindowSize(int display_w, int display_h);
 	int rendermode = 2;// default is fill mode
+	int shadowType = 2;
+	int shadowLightSize = 2;
 	const char* renderModeList[3] = { "Point", "Line", "Fill" };
+	const char* shadowMapTypeList[5] = { "No shadow", "shadow Hard", "PCF", "PCSS", "VSM" };
 private:
 	const std::unordered_map<int, GLenum> RENDER_MODE_MAP = {
 		{0, GL_POINT},
 		{1, GL_LINE},
 		{2, GL_FILL}
 	};
+
 	Camera* camera = nullptr;
 	Scene* scene = nullptr;
 };

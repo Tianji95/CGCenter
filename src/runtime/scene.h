@@ -18,7 +18,7 @@ public:
 		DeleteScene();
 	}
 	void LoadScene();
-	void Draw();
+	void Draw(int shadowType, int shadowLightSize);
 	void DeleteScene();
 	void UpdateWindowSize(int display_w, int display_h);
 private:

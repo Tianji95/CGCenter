@@ -192,7 +192,7 @@ bool UIFramework::Draw()
 
     {
         static float f = 50.0f;
-        ImGui::Begin("Hello, world!"); 
+        ImGui::Begin("options"); 
         
         if (ImGui::SliderFloat("camera speed", &f, 0.1f, 100.0f)) {
             camera->SetCameraSpeed(f);
@@ -206,12 +206,24 @@ bool UIFramework::Draw()
         ImGui::SliderFloat("light cutOff", &cutOff, 30.0f, 150.0f);
         ImGui::SliderFloat("light outerCutOff", &outerCutOff, 30.0f, 150.0f);
 
+        ImGui::SliderInt("shadow Light Size", &render->shadowLightSize, 1, 10);
+
         if (ImGui::BeginCombo("##Draw Mode", render->renderModeList[render->rendermode])) {
             for (int n = 0; n < IM_ARRAYSIZE(render->renderModeList); n++) {
                 bool is_selected = (render->renderModeList[render->rendermode] == render->renderModeList[n]); // You can store your selection however you want, outside or inside your objects
                 if (ImGui::Selectable(render->renderModeList[n], is_selected))
                 {
                    render->rendermode = n;
+                }
+            }
+            ImGui::EndCombo();
+        }
+
+        if (ImGui::BeginCombo("##Shadow Map", render->shadowMapTypeList[render->shadowType])) {
+            for (int n = 0; n < IM_ARRAYSIZE(render->shadowMapTypeList); n++) {
+                bool is_selected = (render->shadowMapTypeList[render->shadowType] == render->shadowMapTypeList[n]);
+                if (ImGui::Selectable(render->shadowMapTypeList[n], is_selected)) {
+                    render->shadowType = n;
                 }
             }
             ImGui::EndCombo();
