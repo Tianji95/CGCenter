@@ -191,13 +191,31 @@ float CalculatePCSSShadow(vec3 projCoords, float shadowBias)
         filterWidth = int(penumbraWidth * shadow_light_size / projCoords.z / 2);
     }
     return CalculatePCFShadow(projCoords, shadowBias,filterWidth);
+}
 
+float CalculateVSMShadow(vec3 projCoords, float shadowBias)
+{
+    float shadow = 0.0;
+	vec2 depthvec = textureLod(shadow_map, projCoords.xy, 1).rg;
+    float depth = depthvec.r;
+    float depthsquare = depthvec.g;
+
+    float variance = max(depthsquare - depth * depth, 0.00001f);
+    float dist = depth - projCoords.z + shadowBias;
+    if (0 < dist) {
+        return 0.0f;
+    }
+    shadow = variance / (variance + dist*dist);
+    return 1.0f - shadow;
 }
 
 float CalculateShadow(vec4 fragPosLightSpace, vec3 norm)
 {
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5;
+    if (projCoords.x < 0.0f || projCoords.x > 1.0f || projCoords.y < 0.0f || projCoords.y > 1.0f) {
+        return 0.0f;
+    }
     vec3 lightDir = normalize(shadow_light_pos - fsWorldPos);
     float shadowBias = max(0.05 * (1.0 - dot(norm, lightDir)), 0.005);
     float shadow = 0.0;
@@ -207,6 +225,8 @@ float CalculateShadow(vec4 fragPosLightSpace, vec3 norm)
         shadow = CalculatePCFShadow(projCoords, shadowBias, 1);
     } else if (shadow_type == 3) { // pcss todo: optimize sampling
         shadow = CalculatePCSSShadow(projCoords, shadowBias);
+    } else if (shadow_type == 4) { // VSM shadow
+        shadow = CalculateVSMShadow(projCoords, shadowBias);
     }
     return shadow;
 }

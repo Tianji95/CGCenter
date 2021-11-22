@@ -8,7 +8,6 @@
 #include "rectanglemesh.h"
 #include "shaderBase.h"
 #include "depthpass.h"
-
 void Scene::LoadScene()
 {
 	cubemap = std::make_shared<CubeMap>();
@@ -30,6 +29,9 @@ void Scene::LoadScene()
 	depthPass = std::make_shared<DepthPass>(glm::vec3(4708.0f, 2842.0f, 2200.0f),	glm::vec3(4708.0f, 2840.0f, 2200.0f), glm::vec3(1.0f));
 	depthPass->GenResources();
 
+	vsmPass = std::make_shared<VsmGeneratePass>(glm::vec3(4708.0f, 2842.0f, 2200.0f), glm::vec3(4708.0f, 2840.0f, 2200.0f), glm::vec3(1.0f));
+	vsmPass->GenResources();
+	
 	forwardMainPass = std::make_shared<ForwardMainPass>();
 	forwardMainPass->GenResources();
 
@@ -104,9 +106,10 @@ void Scene::LoadScene()
 
 void Scene::Draw(int shadowType, int shadowLightSize)
 {
-	std::shared_ptr<ShaderBase> prog = Program::GetInstance().GetProgram(ProgramType::SimpleDepthMapGenerate);
+	std::shared_ptr<ShaderBase> prog = Program::GetInstance().GetProgram(ProgramType::VSMGenerate);
 	prog->use();
-	depthPass->Render(prog);
+	//depthPass->Render(prog);
+	vsmPass->Render(prog);
 	for (auto model : models) {
 		model->Draw(prog);
 	}
@@ -123,8 +126,10 @@ void Scene::Draw(int shadowType, int shadowLightSize)
 	prog = Program::GetInstance().GetProgram(ProgramType::Main);
 	prog->use();
 	
-	depthPass->SetLightSpaceMatrixUniform(prog, shadowType, shadowLightSize);
-	depthPass->UseShadowMap(prog);
+	//depthPass->SetLightSpaceMatrixUniform(prog, shadowType, shadowLightSize);
+	//depthPass->UseShadowMap(prog);
+	vsmPass->SetLightSpaceMatrixUniform(prog, shadowType, shadowLightSize);
+	vsmPass->UseShadowMap(prog);
 	for (auto model : models) { 
 		model->Draw(prog);
 	}
