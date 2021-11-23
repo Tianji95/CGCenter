@@ -41,6 +41,7 @@ a compute graphics learning &amp; coding center
   - [ ] 延迟光照 deferred lighting、light pre-pass
   - [ ] 延迟贴图 deferred texture
 - 拾取功能
+- 重构ECS
 
 ### 阴影 Shadow 
 
@@ -48,8 +49,8 @@ a compute graphics learning &amp; coding center
 - [ ] CSM-hard  ——**计划11月7日前完成**
 - [x] shadow-bias
 - [x] PCF
-- [ ] PCSS ——计划11月21日前完成
-- [ ] VSM ——计划11月28日前完成
+- [x] PCSS
+- [x] VSM
 
 ### 全局光照 GI
 
