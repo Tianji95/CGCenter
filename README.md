@@ -40,17 +40,21 @@ a compute graphics learning &amp; coding center
   - [ ] 延迟渲染 deferred rendering
   - [ ] 延迟光照 deferred lighting、light pre-pass
   - [ ] 延迟贴图 deferred texture
-- 拾取功能
-- 重构ECS
+- [ ] 拾取功能
+- [ ] 重构成ECS
 
 ### 阴影 Shadow 
 
 - [x] shadow map 
-- [ ] CSM-hard  ——**计划11月7日前完成**
+- [ ] CSM-hard
 - [x] shadow-bias
 - [x] PCF
 - [x] PCSS
 - [x] VSM
+
+### 实时光线追踪
+- [ ] BVH 加速结构
+- [ ] 降噪器
 
 ### 全局光照 GI
 
@@ -76,10 +80,6 @@ a compute graphics learning &amp; coding center
 - [ ] bloom
 - [ ] CAS
 - [ ] DLSS
-
-### 实时光线追踪
-
-
 
 ### GPU-Driven
 
