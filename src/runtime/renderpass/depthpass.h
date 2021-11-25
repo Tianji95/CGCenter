@@ -8,7 +8,7 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/vec3.hpp>
 #include "shaderBase.h"
-class DepthPass : public RenderPass{
+class DepthPass : public RenderPass {
 public:
 	DepthPass(glm::vec3 eye, glm::vec3 look, glm::vec3 up)
 	{

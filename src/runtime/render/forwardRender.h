@@ -13,7 +13,7 @@ public:
 	void UpdateRenderData();
 	void InsertGraphNode();
 private:
-	std::unique_ptr<Scene*> mScene;
+	std::unique_ptr<Scene*> scene;
 };
 
 #endif // !FORWARD_RENDER_H

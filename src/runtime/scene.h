@@ -11,6 +11,8 @@
 #include "depthpass.h"
 #include "forward_main_pass.h"
 #include "vsm_generate_pass.h"
+#include "resourceManager.h"
+
 class Scene {
 public:
 	Scene() = default;
@@ -33,5 +35,6 @@ private:
 	std::shared_ptr<DepthPass> depthPass;
 	std::shared_ptr<VsmGeneratePass> vsmPass;
 	std::shared_ptr<ForwardMainPass> forwardMainPass;
+	ResourceManager* rsm;
 };
 #endif // !SCENE_H
