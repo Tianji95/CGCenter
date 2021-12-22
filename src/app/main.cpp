@@ -6,13 +6,13 @@
 
 int main(int, char**)
 {
-    ;
-    UIFramework::Instance().Init();
+    Zxen::UIFramework ui;
+    ui.Init();
     // Main loop
-    while (!UIFramework::Instance().WindowShouldClose())
+    while (!ui.WindowShouldClose())
     {
-        UIFramework::Instance().Draw();
+        ui.Draw();
     }
-    UIFramework::Instance().Destroy();
+    ui.Destroy();
     return 0;
 }

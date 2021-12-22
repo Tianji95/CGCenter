@@ -1,58 +1,44 @@
 #pragma once
 #ifndef PROGRAM_H
 #define PROGRAM_H
-#include "shaderBase.h"
-#include <unordered_map>
+
+#include <string>
+#include <glm/mat4x4.hpp>
 #include <memory>
-#include "config.h"
+namespace Zxen {
+    class Program {
+    public:
+        Program(const std::string& vertexPath, const std::string& fragmentPath)
+            : m_vertexPath(vertexPath), m_fragmentPath(fragmentPath)
+        {
+        }
+        ~Program();
 
-enum class ProgramType {
-	Test = 0,
-	Main = 1,
-	SkyBox = 2,
-	SimpleColored = 3,
-	SimpleDepthMapGenerate = 4,
-	VSMGenerate = 5,
-};
+        void ProduceProgram();
+        void use();
+        void setBool(const std::string& name, bool value) const;
+        void setInt(const std::string& name, int value) const;
+        void setFloat(const std::string& name, float value) const;
+        void setVec2(const std::string& name, const glm::vec2& value) const;
+        void setVec2(const std::string& name, float x, float y) const;
+        void setVec3(const std::string& name, const glm::vec3& value) const;
+        void setVec3(const std::string& name, float x, float y, float z) const;
+        void setVec4(const std::string& name, const glm::vec4& value) const;
+        void setVec4(const std::string& name, float x, float y, float z, float w) const;
+        void setMat2(const std::string& name, const glm::mat2& mat) const;
+        void setMat3(const std::string& name, const glm::mat3& mat) const;
+        void setMat4(const std::string& name, const glm::mat4& mat) const;
+        void SetMVP(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection) const;
+        unsigned int GetID();
 
-class Program {
-public:
-	std::shared_ptr<ShaderBase> GetProgram(ProgramType type)
-	{
-		if (mp.find(type) == mp.end()) {
-			return nullptr;
-		}
-		return mp[type];
-	}
-	static Program& GetInstance()
-	{
-		static Program instance;
-		return instance;
-	}
-private:
-	Program(){
-		mp[ProgramType::Test] = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/test_textured.vert", SRC_BASE_PATH + "src/shaders/test_textured.frag");
-		mp[ProgramType::Test]->ProduceProgram();
+    private:
+        std::string m_vertexPath;
+        std::string m_fragmentPath;
 
-		mp[ProgramType::Main] = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/main.vert", SRC_BASE_PATH + "src/shaders/main.frag");
-		mp[ProgramType::Main]->ProduceProgram();
+        unsigned int programID = 0;
+        void checkCompileErrors(unsigned int shader, std::string type);
+    };
 
-		mp[ProgramType::SkyBox] = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/skybox.vert", SRC_BASE_PATH + "src/shaders/skybox.frag");
-		mp[ProgramType::SkyBox]->ProduceProgram();
-
-		mp[ProgramType::SimpleColored] = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/simple_colored_mesh.vert", SRC_BASE_PATH + "src/shaders/simple_colored_mesh.frag");
-		mp[ProgramType::SimpleColored]->ProduceProgram();
-
-		mp[ProgramType::SimpleDepthMapGenerate] = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/simple_depth_map_generate.vert", SRC_BASE_PATH + "src/shaders/simple_depth_map_generate.frag");
-		mp[ProgramType::SimpleDepthMapGenerate]->ProduceProgram();
-
-		mp[ProgramType::VSMGenerate] = std::make_shared<ShaderBase>(SRC_BASE_PATH + "src/shaders/vsm_generate.vert", SRC_BASE_PATH + "src/shaders/vsm_generate.frag");
-		mp[ProgramType::VSMGenerate]->ProduceProgram();
-	}
-	~Program() {	 }
-	Program(const Program&);
-	Program& operator=(const Program&);
-	std::unordered_map<ProgramType, std::shared_ptr<ShaderBase>> mp;
-};
-
-#endif // !PROGRAM_H
+    using ProgramPtr = std::shared_ptr<Program>;
+}
+#endif

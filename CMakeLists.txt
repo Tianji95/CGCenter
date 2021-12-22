@@ -10,6 +10,10 @@ INCLUDE_DIRECTORIES( BEFORE
   src/runtime/geometry
   src/runtime/light
   src/runtime/renderpass
+  src/runtime/render
+  src/runtime/basic
+  src/runtime/component
+  src/runtime/entity
 )
 
 SET(BASE_LIBRARY_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libs")
@@ -37,6 +41,10 @@ file(GLOB SOURCE
     ./src/runtime/renderpass/*.cpp
     ./src/runtime/geometry/*.cpp
     ./src/runtime/ui/*.cpp
+    ./src/runtime/render/*.cpp
+    ./src/runtime/basic/*.cpp
+    ./src/runtime/component/*.cpp
+    ./src/runtime/entity/*.cpp
 )
 
 file(GLOB HEADERS
@@ -47,6 +55,10 @@ file(GLOB HEADERS
     ./src/runtime/renderpass/*.h
     ./src/runtime/geometry/*.h
     ./src/runtime/ui/*.h
+    ./src/runtime/render/*.h
+    ./src/runtime/basic/*.h
+    ./src/runtime/component/*.h
+    ./src/runtime/entity/*.h
 )
 SET(EXECUTABLE_OUTPUT_PATH ./build)
 add_executable(CGCenter ${SOURCE} ${HEADERS})

@@ -1,21 +1,35 @@
 #include "PointLight.h"
-#include "uiframework.h"
+namespace Zxen {
+	void PointLight::Setup(glm::vec3 pos, glm::vec3 amb, glm::vec3 diffu, glm::vec3 spec, float cons, float lin, float quad, int idx)
+	{
+		position = pos;
+		ambient = amb;
+		diffuse = diffu;
+		specular = spec;
+		constant = cons;
+		linear = lin;
+		quadratic = quad;
+		lightIdx = idx;
+	}
 
-void PointLight::SetUniforms() const
-{
-	program->use();
-	//program->setVec3("pointLights[" + std::to_string(lightIdx) + "].position", position);
-	//program->setVec3("pointLights[" + std::to_string(lightIdx) + "].ambient", ambient);
-	//program->setVec3("pointLights[" + std::to_string(lightIdx) + "].diffuse", diffuse);
-	//program->setVec3("pointLights[" + std::to_string(lightIdx) + "].specular", specular);
-	//program->setFloat("pointLights[" + std::to_string(lightIdx) + "].constant", constant);
-	//program->setFloat("pointLights[" + std::to_string(lightIdx) + "].linear", linear);
-	//program->setFloat("pointLights[" + std::to_string(lightIdx) + "].quadratic", quadratic);
-	program->setVec3("pointLights[" + std::to_string(lightIdx) + "].position", position);
-	program->setVec3("pointLights[" + std::to_string(lightIdx) + "].ambient", UIFramework::Instance().ambientColor.x, UIFramework::Instance().ambientColor.y, UIFramework::Instance().ambientColor.z);
-	program->setVec3("pointLights[" + std::to_string(lightIdx) + "].diffuse", UIFramework::Instance().diffuseColor.x, UIFramework::Instance().diffuseColor.y, UIFramework::Instance().diffuseColor.z);
-	program->setVec3("pointLights[" + std::to_string(lightIdx) + "].specular", UIFramework::Instance().specularColor.x, UIFramework::Instance().specularColor.y, UIFramework::Instance().specularColor.z);
-	program->setFloat("pointLights[" + std::to_string(lightIdx) + "].constant", UIFramework::Instance().cons);
-	program->setFloat("pointLights[" + std::to_string(lightIdx) + "].linear", UIFramework::Instance().lin);
-	program->setFloat("pointLights[" + std::to_string(lightIdx) + "].quadratic", UIFramework::Instance().quad);
+	void PointLight::Setup(glm::vec3 amb, glm::vec3 diffu, glm::vec3 spec, float cons, float lin, float quad)
+	{
+		ambient = amb;
+		diffuse = diffu;
+		specular = spec;
+		constant = cons;
+		linear = lin;
+		quadratic = quad;
+	}
+
+	void PointLight::SetUniforms(ProgramPtr program) const
+	{
+		program->setVec3("pointLights[" + std::to_string(lightIdx) + "].position", position);
+		program->setVec3("pointLights[" + std::to_string(lightIdx) + "].ambient", ambient.x, ambient.y, ambient.z);
+		program->setVec3("pointLights[" + std::to_string(lightIdx) + "].diffuse", diffuse.x, diffuse.y, diffuse.z);
+		program->setVec3("pointLights[" + std::to_string(lightIdx) + "].specular", specular.x, specular.y, specular.z);
+		program->setFloat("pointLights[" + std::to_string(lightIdx) + "].constant", constant);
+		program->setFloat("pointLights[" + std::to_string(lightIdx) + "].linear", linear);
+		program->setFloat("pointLights[" + std::to_string(lightIdx) + "].quadratic", quadratic);
+	}
 }

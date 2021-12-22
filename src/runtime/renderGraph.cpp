@@ -1,20 +1,21 @@
 #include "renderGraph.h"
-
-void RenderGraph::InsertGraphNode(GraphNode* node)
-{
-	nodes.push_back(node);
-}
-
-void RenderGraph::Submit()
-{
-	for (auto& node : nodes) {
-		node->Submit();
+namespace Zxen {
+	void RenderGraph::InsertGraphNode(GraphNode& node)
+	{
+		nodes.push_back(&node);
 	}
-}
 
-void RenderGraph::Execute()
-{
-	for (auto& node : nodes) {
-		node->Execute();
+	void RenderGraph::Submit() const
+	{
+		for (auto& node : nodes) {
+			node->Submit();
+		}
+	}
+
+	void RenderGraph::Execute() const
+	{
+		for (auto& node : nodes) {
+			node->Execute();
+		}
 	}
 }

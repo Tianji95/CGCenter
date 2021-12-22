@@ -13,7 +13,13 @@ a compute graphics learning &amp; coding center
 
 下一步需要做的：
 
-重构代码，把shader组织起来
+添加transform component
+
+texture的格式设置
+
+program的uniform和mesh的draw解耦
+
+解耦std的map和智能指针
 
 光线追踪和GI
 

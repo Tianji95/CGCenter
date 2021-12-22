@@ -1,25 +1,48 @@
 #include "spotlight.h"
-#include "uiframework.h"
 #include<glm/gtx/transform.hpp>
-void SpotLight::SetUniforms() const
-{
-	program->use();
-	//program->setVec3("pointLights[" + std::to_string(lightIdx) + "].position", position);
-	//program->setVec3("pointLights[" + std::to_string(lightIdx) + "].ambient", ambient);
-	//program->setVec3("pointLights[" + std::to_string(lightIdx) + "].diffuse", diffuse);
-	//program->setVec3("pointLights[" + std::to_string(lightIdx) + "].specular", specular);
-	//program->setFloat("pointLights[" + std::to_string(lightIdx) + "].constant", constant);
-	//program->setFloat("pointLights[" + std::to_string(lightIdx) + "].linear", linear);
-	//program->setFloat("pointLights[" + std::to_string(lightIdx) + "].quadratic", quadratic);
-	program->setVec3("spotLight[" + std::to_string(lightIdx) + "].position", position);
-	program->setVec3("spotLight[" + std::to_string(lightIdx) + "].direction", direction);
-	program->setFloat("spotLight[" + std::to_string(lightIdx) + "].cutOff", glm::cos(glm::radians(UIFramework::Instance().cutOff)));
-	program->setFloat("spotLight[" + std::to_string(lightIdx) + "].outerCutOff", glm::cos(glm::radians(UIFramework::Instance().outerCutOff)));
+namespace Zxen {
+	void SpotLight::Setup(glm::vec3 pos, glm::vec3 direct, glm::vec3 amb, glm::vec3 diffu, glm::vec3 spec,
+		float cO, float outerCO, float cons, float lin, float quad, int idx)
+	{
+		position = pos;
+		direction = direct;
+		ambient = amb;
+		diffuse = diffu;
+		specular = spec;
+		cutOff = cO;
+		outerCutOff = outerCO;
+		constant = cons;
+		linear = lin;
+		quadratic = quad;
+		lightIdx = idx;
+	}
 
-	program->setVec3("spotLight[" + std::to_string(lightIdx) + "].ambient", UIFramework::Instance().ambientColor.x, UIFramework::Instance().ambientColor.y, UIFramework::Instance().ambientColor.z);
-	program->setVec3("spotLight[" + std::to_string(lightIdx) + "].diffuse", UIFramework::Instance().diffuseColor.x, UIFramework::Instance().diffuseColor.y, UIFramework::Instance().diffuseColor.z);
-	program->setVec3("spotLight[" + std::to_string(lightIdx) + "].specular", UIFramework::Instance().specularColor.x, UIFramework::Instance().specularColor.y, UIFramework::Instance().specularColor.z);
-	program->setFloat("spotLight[" + std::to_string(lightIdx) + "].constant", UIFramework::Instance().cons);
-	program->setFloat("spotLight[" + std::to_string(lightIdx) + "].linear", UIFramework::Instance().lin);
-	program->setFloat("spotLight[" + std::to_string(lightIdx) + "].quadratic", UIFramework::Instance().quad);
+
+	void SpotLight::Setup(glm::vec3 amb, glm::vec3 diffu, glm::vec3 spec,
+		float cO, float outerCO, float cons, float lin, float quad)
+	{
+		ambient = amb;
+		diffuse = diffu;
+		specular = spec;
+		cutOff = cO;
+		outerCutOff = outerCO;
+		constant = cons;
+		linear = lin;
+		quadratic = quad;
+	}
+
+	void SpotLight::SetUniforms(ProgramPtr program) const
+	{
+		program->setVec3("spotLights[" + std::to_string(lightIdx) + "].position", position);
+		program->setVec3("spotLights[" + std::to_string(lightIdx) + "].direction", direction);
+		program->setFloat("spotLights[" + std::to_string(lightIdx) + "].cutOff", cutOff);
+		program->setFloat("spotLights[" + std::to_string(lightIdx) + "].outerCutOff", outerCutOff);
+
+		program->setVec3("spotLights[" + std::to_string(lightIdx) + "].ambient", ambient.x, ambient.y, ambient.z);
+		program->setVec3("spotLights[" + std::to_string(lightIdx) + "].diffuse", diffuse.x, diffuse.y, diffuse.z);
+		program->setVec3("spotLights[" + std::to_string(lightIdx) + "].specular", specular.x, specular.y, specular.z);
+		program->setFloat("spotLights[" + std::to_string(lightIdx) + "].constant", constant);
+		program->setFloat("spotLights[" + std::to_string(lightIdx) + "].linear", linear);
+		program->setFloat("spotLights[" + std::to_string(lightIdx) + "].quadratic", quadratic);
+	}
 }

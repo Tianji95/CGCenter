@@ -3,27 +3,31 @@
 #define SPOT_LIGHT_H
 #include "light.h"
 #include <memory>
-class SpotLight : public Light{
-public:
-    SpotLight(glm::vec3 pos, glm::vec3 direct, glm::vec3 amb, glm::vec3 diffu, glm::vec3 spec,
-        float cO, float outerCO, float cons, float lin, float quad, int idx,
-        std::shared_ptr<ShaderBase> prog):position(pos), direction(direct), Light(amb, diffu, spec, prog),
-        cutOff(cO), outerCutOff(outerCO), constant(cons), linear(lin), quadratic(quad), lightIdx(idx)
-    {
+namespace Zxen {
+    class SpotLight : public Light {
+    public:
+        SpotLight()
+        {
 
-    }
-    ~SpotLight() = default;
-    virtual void SetUniforms() const override;
-private:
-    glm::vec3 position;
-    glm::vec3 direction;
-    float cutOff;
-    float outerCutOff;
-    float constant;
-    float linear;
-    float quadratic;
+        }
+        ~SpotLight() = default;
+        virtual void SetUniforms(ProgramPtr program) const override;
+        void Setup(glm::vec3 pos, glm::vec3 direct, glm::vec3 amb, glm::vec3 diffu, glm::vec3 spec,
+            float cO, float outerCO, float cons, float lin, float quad, int idx);
 
-    int lightIdx = 0;
-};
+        void Setup(glm::vec3 amb, glm::vec3 diffu, glm::vec3 spec,
+            float cO, float outerCO, float cons, float lin, float quad);
+    private:
+        glm::vec3 position;
+        glm::vec3 direction;
+        float cutOff;
+        float outerCutOff;
+        float constant;
+        float linear;
+        float quadratic;
 
+        int lightIdx = 0;
+    };
+    using SpotLightPtr = std::shared_ptr<SpotLight>;
+}
 #endif // !1

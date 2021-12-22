@@ -1,51 +1,49 @@
 #include "vsm_generate_pass.h"
 #include "glm/gtc/type_ptr.hpp"
+#include "config.h"
+#include "resourceManager.h"
+#include "mesh.h"
+#include "zxEngine.h"
+#include "scene.h"
+namespace Zxen {
+	bool VsmGeneratePass::GenResources()
+	{
+		ResourceManager* rsm = engine->GetResourceManager();;
+		prog = rsm->CreateProgram(SRC_BASE_PATH + "src/shaders/vsm_generate.vert", SRC_BASE_PATH + "src/shaders/vsm_generate.frag");
+		prog->ProduceProgram();
+		material = rsm->CreateMaterial();
+		material->program = prog;
 
-bool VsmGeneratePass::GenResources()
-{
-	glGenFramebuffers(1, &FBO);
+		// node->SetProgram(prog);
+		depthTexture = rsm->CreateTexture2D(std::string("shadowmap"));
+		depthTexture->Setup(std::string("shadow_map"), width, height, 0, GL_RG32F, GL_RG, GL_FLOAT, nullptr);
+		GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+		depthTexture->SetupBorderColor(borderColor);
+		depthTexture->Submit();
 
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RG32F, width, height, 0, GL_RG, GL_FLOAT, nullptr);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-	glTextureParameteri(texture, GL_TEXTURE_BASE_LEVEL, 0);
-	glTextureParameteri(texture, GL_TEXTURE_MAX_LEVEL, 7);
-	GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
-	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	return true;
-}
-void VsmGeneratePass::UseShadowMap(std::shared_ptr<ShaderBase> program)
-{
-	auto textureID = glGetUniformLocation(program->GetID(), "shadow_map");
-	glActiveTexture(GL_TEXTURE0 + 18);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glUniform1i(textureID, 18);
-}
-void VsmGeneratePass::SetLightSpaceMatrixUniform(std::shared_ptr<ShaderBase> program, int shadowType, int shadowLightSize) const
-{
-	glUniformMatrix4fv(glGetUniformLocation(program->GetID(), "LightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
-	GLuint shadowLightPosID = glGetUniformLocation(program->GetID(), "shadow_light_pos");
-	glUniform3fv(shadowLightPosID, 1, &pos[0]);
+		fb = rsm->CreateFrameBuffer();
+		fb->AddAttachment(GL_COLOR_ATTACHMENT0, depthTexture);
+		fb->Setup();
+		fb->Submit();
+		glGenerateMipmap(GL_TEXTURE_2D);
 
-	GLuint shadowTypeID = glGetUniformLocation(program->GetID(), "shadow_type");
-	glUniform1i(shadowTypeID, shadowType);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		return true;
+	}
 
-	GLuint shadowLightSizeID = glGetUniformLocation(program->GetID(), "shadow_light_size");
-	glUniform1i(shadowLightSizeID, shadowLightSize);
-}
+	void VsmGeneratePass::Render()
+	{
+		ResourceManager* rsm = engine->GetResourceManager();
+		prog->use();
+		glUniformMatrix4fv(glGetUniformLocation(prog->GetID(), "LightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+		glViewport(0, 0, width, height);
+		glBindFramebuffer(GL_FRAMEBUFFER, fb->GetFBID());
+		glClear(GL_COLOR_BUFFER_BIT);
 
-void VsmGeneratePass::Render(std::shared_ptr<ShaderBase> program) const
-{
-	glViewport(0, 0, width, height);
-	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-	glClear(GL_COLOR_BUFFER_BIT);
-	SetLightSpaceMatrixUniform(program, 2, 2);
+		// todo 解耦program参数和draw()
+		std::vector<MeshPtr> meshes = rsm->GetRenderableMeshes();
+		for (auto& mesh : meshes) {
+			mesh->DrawElements(engine->GetScene()->GetCamera(), RenderPassType::SHADOW);
+		}
+	}
 }
